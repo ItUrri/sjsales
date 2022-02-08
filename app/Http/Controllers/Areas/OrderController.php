@@ -79,11 +79,23 @@ class OrderController extends Controller
             abort(404);
         }
 
+        $last = $this->em->getRepository(Order::class)->findOneBy([
+            'area' => $entity,
+        ], ['created' => 'DESC']);
+
+        if ($last) {
+            $matches = [];
+            if (!preg_match(Order::SEQUENCE_PATTERN, $last->getSequence(), $matches)) {
+                throw new \RuntimeException(sprintf("Description not matches with $pattern pattern"));
+            }
+            $sequence = (int) trim($matches[5], "-") + 1;
+        }
+
         $order = new Order;
         $order->setArea($entity);
         $order->setSequence(implode("-", [
             "{$entity->getSerial()}/{$entity->getCreated()->format('y')}",
-            1
+            isset($sequence) ? $sequence : 1
         ])); //FIXME
         $this->hydrateData($order, $request->all());
         $this->em->persist($order);

@@ -4,7 +4,7 @@
 <h3>Order nº {{$order->getSequence()}}</h3>
 <div class="row">
     <div class="col-md-6 border">
-        <div><strong>Area</strong>: {{ $order->getArea() }}</div>
+        <div><strong>Area</strong>: <a href="{{ route('areas.show', ['area' => $order->getArea()->getId()]) }}">{{ $order->getArea() }}</a></div>
         <div>{{ implode(", ", $order->getArea()->getDepartments()->map(function ($e) { return $e->getName(); })->toArray()) }}</div>
         <div><strong>Status</strong>: {{ $order->getStatusName() }}</div>
         <div><strong>Estimated Credit</strong>: {{ $order->getEstimatedCredit() }} € | <strong>Credit</strong>: {{ $order->getCredit() }} €</div>
