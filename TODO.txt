@@ -1,0 +1,11 @@
+
+Order EventListeners:attach:
+    Create
+    - Decrease credit
+    Pay
+    - Supplier anual invoiced 
+    - Supplier limit invoiced
+    - Recommended supplier
+    Incidence
+    - Recommended supplier
+
