@@ -282,6 +282,16 @@ class Area
     }
 
     /**
+     * Get availableCredit.
+     *
+     * @return float
+     */
+    public function getAvailableCredit()
+    {
+        return $this->credit - $this->getCompromisedCredit();
+    }
+
+    /**
      * Add Department.
      *
      * @param \Department $department

@@ -22,10 +22,10 @@
             <div class="input-group input-group-sm">
                 {{ Form::number("products[{$index}][credit]", null, ["class" => "form-control" . ($errors->has("products.{$index}.credit") ? " is-invalid":""), "step" => "0.01", "min" => 0 ]) }}
                 <span class="input-group-text">€</span>
+                @if ($errors->has("products.{$index}.credit"))
+                   <div class="invalid-feedback">{!! $errors->first("products.{$index}.credit") !!}</div>
+                @endif
             </div>
-            @if ($errors->has("products.{$index}.credit"))
-               <div class="invalid-feedback">{!! $errors->first("products.{$index}.credit") !!}</div>
-            @endif
         </div>
     </div>
 </div>

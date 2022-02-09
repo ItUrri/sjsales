@@ -12,7 +12,7 @@
     }}
 
     <div class="col-md-6 mb-3 border">
-        {{ Form::label('credit', 'Credit', ['class' => 'form-label']) }}
+        {{ Form::label('credit', 'Estimated credit', ['class' => 'form-label']) }}
         <div class="input-group input-group-sm">
             {{ Form::number('credit', null, ['step' => '0.01', 'min' => 0, 'class' => 'form-control' . ($errors->has('credit') ? ' is-invalid':'') ]) }}
             <span class="input-group-text">€</span>

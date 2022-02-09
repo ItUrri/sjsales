@@ -2,14 +2,25 @@
 
 namespace App\Http\Requests;
 
+use Doctrine\ORM\EntityManagerInterface;
 use Illuminate\Foundation\Http\FormRequest;
+use App\Entities\Area;
 
 class OrderPostRequest extends FormRequest
 {
-    public function __construct(\App\Entities\Area $e)
+    /**
+     * @EntityManagerInterface
+     */ 
+    protected $em;
+
+    /**
+     * @param EntityManagerInterface $em
+     */
+    public function __construct(EntityManagerInterface $em)
     {
-        parent::__construct();
-}
+        $this->em = $em;
+    }
+
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -27,8 +38,12 @@ class OrderPostRequest extends FormRequest
      */
     public function rules()
     {
+        $id = $this->route('area');
+        if (null === ($entity = $this->em->find(Area::class, $id))) {
+            abort(404);
+        }
         return [
-            'credit' => 'required|min:0',
+            'credit' => "required|numeric|between:0,{$entity->getAvailableCredit()}",
             'products.*.supplier' => 'required',
             'products.*.detail'   => 'required|max:255',
             'products.*.credit'   => 'required|min:0',
