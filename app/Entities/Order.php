@@ -13,7 +13,7 @@ use App\Entities\Order\Product;
  * @ORM\Entity(repositoryClass="App\Repositories\OrderRepository")
  * @ORM\HasLifecycleCallbacks
  */
-class Order
+class Order implements \JsonSerializable
 {
     const STATUS_CREATED  = 0;
     const STATUS_PAID     = 1;
@@ -51,6 +51,13 @@ class Order
      * @ORM\Column(name="seq", type="string")
      */
     private $sequence;
+
+    /**
+     * @var DateTime 
+     *
+     * @ORM\Column(name="date", type="datetime")
+     */
+    private $date;
 
     /**
      * @var Area 
@@ -367,6 +374,30 @@ class Order
     }
 
     /**
+     * Set date.
+     *
+     * @param \Datetime $date
+     *
+     * @return Order
+     */
+    public function setDate(\Datetime $date)
+    {
+        $this->date = $date;
+
+        return $this;
+    }
+
+    /**
+     * Get date.
+     *
+     * @return \Datetime
+     */
+    public function getDate()
+    {
+        return $this->date;
+    }
+
+    /**
      * Set created.
      *
      * @param \Datetime $created
@@ -457,5 +488,17 @@ class Order
             case self::STATUS_MOVED: return "Moved";
             return "Undefined";
         }
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function jsonSerialize()
+    {
+        return [
+            'id' => $this->getId(),
+            'sequence' => $this->getSequence(),
+            'date' => $this->getDate()->format("d/m/Y H:i"),
+        ];
     }
 }

@@ -9,6 +9,7 @@
         <div><strong>Zip</strong>: {{$entity->getZip() }}</div>
         <div><strong>City</strong>: {{$entity->getCity() }}</div>
         <div><strong>Address</strong>: {{$entity->getAddress() }}</div>
+        <a href="" class='btn btn-sm btn-outline-primary'>Add incidence</a>
         <div class="input-group">
             <a href="" class="btn btn-sm btn-outline-primary">edit</a>
             <a href="" class="btn btn-sm btn-outline-primary">delete</a>

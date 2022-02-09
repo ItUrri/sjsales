@@ -370,7 +370,7 @@ class Area
      */
     public function getOrders()
     {
-        return $this->departments;
+        return $this->orders;
     }
 
     /**

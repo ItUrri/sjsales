@@ -75,6 +75,7 @@ class OrderController extends Controller
      */
     public function store($id, OrderPostRequest $request)
     {
+        //dd($request->all());
         if (null === ($entity = $this->em->find(Area::class, $id))) {
             abort(404);
         }
@@ -92,11 +93,11 @@ class OrderController extends Controller
         }
 
         $order = new Order;
+        $this->hydrateData($order, $request->all());
         $order->setSequence(implode("-", [
             "{$entity->getSerial()}/{$entity->getCreated()->format('y')}",
             isset($sequence) ? $sequence : 1
         ])); //FIXME
-        $this->hydrateData($order, $request->all());
 
         $entity->addOrder($order)
             ->increaseCompromisedCredit($order->getEstimatedCredit())
@@ -116,6 +117,7 @@ class OrderController extends Controller
     {
         if (isset($data['credit'])) $entity->setEstimatedCredit($data['credit']);
         if (isset($data['detail'])) $entity->setDetail($data['detail']);
+        if (isset($data['date']))   $entity->setDate(new \Datetime($data['date']));
 
         if (!isset($data['products'])) $data['products'] = [[]];
         foreach ($data['products'] as $raw) {

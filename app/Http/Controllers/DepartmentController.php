@@ -44,7 +44,8 @@ class DepartmentController extends Controller
      */
     public function create()
     {
-        return view('departments.create', [
+        return view('departments.form', [
+            'entity' => new Department,
         ]); 
     }
 
@@ -96,8 +97,8 @@ class DepartmentController extends Controller
             abort(404);
         }
 
-        return view('departments.edit', [
-            'department' => $entity,
+        return view('departments.form', [
+            'entity' => $entity,
         ]); 
     }
 

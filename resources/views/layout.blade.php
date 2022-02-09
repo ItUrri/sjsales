@@ -14,7 +14,6 @@
         }
         #layout-container {
             background-color: white;
-            min-height: 1500px;
             margin-top: 50px;
         }
     </style>

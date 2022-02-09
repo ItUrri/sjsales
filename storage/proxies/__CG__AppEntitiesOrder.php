@@ -66,10 +66,10 @@ class Order extends \App\Entities\Order implements \Doctrine\ORM\Proxy\Proxy
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return ['__isInitialized__', '' . "\0" . 'App\\Entities\\Order' . "\0" . 'id', '' . "\0" . 'App\\Entities\\Order' . "\0" . 'status', '' . "\0" . 'App\\Entities\\Order' . "\0" . 'detail', '' . "\0" . 'App\\Entities\\Order' . "\0" . 'sequence', '' . "\0" . 'App\\Entities\\Order' . "\0" . 'area', '' . "\0" . 'App\\Entities\\Order' . "\0" . 'products', '' . "\0" . 'App\\Entities\\Order' . "\0" . 'movements', '' . "\0" . 'App\\Entities\\Order' . "\0" . 'estimatedCredit', '' . "\0" . 'App\\Entities\\Order' . "\0" . 'credit', '' . "\0" . 'App\\Entities\\Order' . "\0" . 'invoice', '' . "\0" . 'App\\Entities\\Order' . "\0" . 'created', '' . "\0" . 'App\\Entities\\Order' . "\0" . 'updated'];
+            return ['__isInitialized__', '' . "\0" . 'App\\Entities\\Order' . "\0" . 'id', '' . "\0" . 'App\\Entities\\Order' . "\0" . 'status', '' . "\0" . 'App\\Entities\\Order' . "\0" . 'detail', '' . "\0" . 'App\\Entities\\Order' . "\0" . 'sequence', '' . "\0" . 'App\\Entities\\Order' . "\0" . 'date', '' . "\0" . 'App\\Entities\\Order' . "\0" . 'area', '' . "\0" . 'App\\Entities\\Order' . "\0" . 'products', '' . "\0" . 'App\\Entities\\Order' . "\0" . 'movements', '' . "\0" . 'App\\Entities\\Order' . "\0" . 'estimatedCredit', '' . "\0" . 'App\\Entities\\Order' . "\0" . 'credit', '' . "\0" . 'App\\Entities\\Order' . "\0" . 'invoice', '' . "\0" . 'App\\Entities\\Order' . "\0" . 'created', '' . "\0" . 'App\\Entities\\Order' . "\0" . 'updated'];
         }
 
-        return ['__isInitialized__', '' . "\0" . 'App\\Entities\\Order' . "\0" . 'id', '' . "\0" . 'App\\Entities\\Order' . "\0" . 'status', '' . "\0" . 'App\\Entities\\Order' . "\0" . 'detail', '' . "\0" . 'App\\Entities\\Order' . "\0" . 'sequence', '' . "\0" . 'App\\Entities\\Order' . "\0" . 'area', '' . "\0" . 'App\\Entities\\Order' . "\0" . 'products', '' . "\0" . 'App\\Entities\\Order' . "\0" . 'movements', '' . "\0" . 'App\\Entities\\Order' . "\0" . 'estimatedCredit', '' . "\0" . 'App\\Entities\\Order' . "\0" . 'credit', '' . "\0" . 'App\\Entities\\Order' . "\0" . 'invoice', '' . "\0" . 'App\\Entities\\Order' . "\0" . 'created', '' . "\0" . 'App\\Entities\\Order' . "\0" . 'updated'];
+        return ['__isInitialized__', '' . "\0" . 'App\\Entities\\Order' . "\0" . 'id', '' . "\0" . 'App\\Entities\\Order' . "\0" . 'status', '' . "\0" . 'App\\Entities\\Order' . "\0" . 'detail', '' . "\0" . 'App\\Entities\\Order' . "\0" . 'sequence', '' . "\0" . 'App\\Entities\\Order' . "\0" . 'date', '' . "\0" . 'App\\Entities\\Order' . "\0" . 'area', '' . "\0" . 'App\\Entities\\Order' . "\0" . 'products', '' . "\0" . 'App\\Entities\\Order' . "\0" . 'movements', '' . "\0" . 'App\\Entities\\Order' . "\0" . 'estimatedCredit', '' . "\0" . 'App\\Entities\\Order' . "\0" . 'credit', '' . "\0" . 'App\\Entities\\Order' . "\0" . 'invoice', '' . "\0" . 'App\\Entities\\Order' . "\0" . 'created', '' . "\0" . 'App\\Entities\\Order' . "\0" . 'updated'];
     }
 
     /**
@@ -414,6 +414,28 @@ class Order extends \App\Entities\Order implements \Doctrine\ORM\Proxy\Proxy
     /**
      * {@inheritDoc}
      */
+    public function setDate(\Datetime $date)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setDate', [$date]);
+
+        return parent::setDate($date);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getDate()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getDate', []);
+
+        return parent::getDate();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function setCreated(\Datetime $created)
     {
 
@@ -475,6 +497,17 @@ class Order extends \App\Entities\Order implements \Doctrine\ORM\Proxy\Proxy
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'fromArray', [$values]);
 
         return parent::fromArray($values);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function jsonSerialize()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'jsonSerialize', []);
+
+        return parent::jsonSerialize();
     }
 
 }
