@@ -234,6 +234,28 @@ class Area
     }
 
     /**
+     * Get availableCredit.
+     *
+     * @param float $credit
+     * @return Area
+     */
+    public function increaseCompromisedCredit(float $credit)
+    {
+        $this->compromisedCredit += $credit;
+    }
+
+    /**
+     * Get availableCredit.
+     *
+     * @param float $credit
+     * @return Area
+     */
+    public function decreaseCompromisedCredit(float $credit)
+    {
+        $this->compromisedCredit -= $credit;
+    }
+
+    /**
      * Set compromisedCredit.
      *
      * @param float $credit
@@ -300,6 +322,7 @@ class Area
      */
     public function addDepartment(Department $department)
     {
+        $department->setArea($this);
         $this->departments[] = $department;
         return $this;
     }
@@ -322,6 +345,30 @@ class Area
      * @return \Doctrine\Common\Collections\Collection
      */
     public function getDepartments()
+    {
+        return $this->departments;
+    }
+
+    /**
+     * Add Order.
+     *
+     * @param Order $order
+     *
+     * @return Area
+     */
+    public function addOrder(Order $order)
+    {
+        $order->setArea($this);
+        $this->orders[] = $order;
+        return $this;
+    }
+
+    /**
+     * Get orders.
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getOrders()
     {
         return $this->departments;
     }

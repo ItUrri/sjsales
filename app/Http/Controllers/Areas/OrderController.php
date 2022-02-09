@@ -92,13 +92,15 @@ class OrderController extends Controller
         }
 
         $order = new Order;
-        $order->setArea($entity);
         $order->setSequence(implode("-", [
             "{$entity->getSerial()}/{$entity->getCreated()->format('y')}",
             isset($sequence) ? $sequence : 1
         ])); //FIXME
         $this->hydrateData($order, $request->all());
-        $this->em->persist($order);
+
+        $entity->addOrder($order)
+            ->increaseCompromisedCredit($order->getEstimatedCredit())
+            ;
         $this->em->flush();
         return redirect()->route('orders.show', $order->getId())
                          ->with('success', 'Successfully created');

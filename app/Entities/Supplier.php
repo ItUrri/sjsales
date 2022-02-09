@@ -27,7 +27,7 @@ class Supplier
     /**
      * @var int
      *
-     * @ORM\Column(name="nif", type="integer", unique=true)
+     * @ORM\Column(name="nif", type="bigint", unique=true)
      */
     private $nif;
 

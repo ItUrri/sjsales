@@ -2,6 +2,7 @@
 
 @section('content')
 <h3>Departments</h3>
+<a href="{{ route('departments.create') }}" class="btn btn-sm btn-outline-primary">New</a>
 <div class="table-responsive table-responsive-sm">
     <table class="table bordered caption-top">
         <caption>List of departments</caption>

@@ -293,6 +293,28 @@ class Area extends \App\Entities\Area implements \Doctrine\ORM\Proxy\Proxy
     /**
      * {@inheritDoc}
      */
+    public function increaseCompromisedCredit(float $credit)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'increaseCompromisedCredit', [$credit]);
+
+        return parent::increaseCompromisedCredit($credit);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function decreaseCompromisedCredit(float $credit)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'decreaseCompromisedCredit', [$credit]);
+
+        return parent::decreaseCompromisedCredit($credit);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function setCompromisedCredit(float $credit)
     {
 
@@ -337,6 +359,17 @@ class Area extends \App\Entities\Area implements \Doctrine\ORM\Proxy\Proxy
     /**
      * {@inheritDoc}
      */
+    public function getAvailableCredit()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getAvailableCredit', []);
+
+        return parent::getAvailableCredit();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function addDepartment(\App\Entities\Department $department)
     {
 
@@ -365,6 +398,28 @@ class Area extends \App\Entities\Area implements \Doctrine\ORM\Proxy\Proxy
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'getDepartments', []);
 
         return parent::getDepartments();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function addOrder(\App\Entities\Order $order)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'addOrder', [$order]);
+
+        return parent::addOrder($order);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getOrders()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getOrders', []);
+
+        return parent::getOrders();
     }
 
     /**
@@ -436,7 +491,7 @@ class Area extends \App\Entities\Area implements \Doctrine\ORM\Proxy\Proxy
     /**
      * {@inheritDoc}
      */
-    public function __toString(): string
+    public function __toString()
     {
 
         $this->__initializer__ && $this->__initializer__->__invoke($this, '__toString', []);

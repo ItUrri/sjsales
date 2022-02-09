@@ -7,7 +7,7 @@
     <div class="col-6 mb-3 border">
         <div><strong>Acronym</strong>: {{$entity->getSerial() }}</div>
         <div><strong>Type</strong>: {{$entity->getTypeName() }}</div>
-        <div><strong>Credit</strong>: {{$entity->getCredit() }} €</div>
+        <div><strong>Available credit</strong><p>{{$entity->getCredit() }} (real) - {{$entity->getCompromisedCredit()}} (gasto comprometido) = {{ $entity->getAvailableCredit() }}€</p></div>
         <div class="input-group">
             <a href="{{ route('areas.orders.create', ['area' => $entity->getId()]) }}" class="btn btn-sm btn-outline-primary {{request()->is('areas/*/orders/create') ? 'active' : ''}} me-4">new order</a>
             <a href="{{ route('areas.edit', ['area' => $entity->getId()]) }}" class="btn btn-sm btn-outline-primary float-end">edit</a>

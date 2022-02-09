@@ -84,6 +84,9 @@ class MovementController extends Controller
               ->setInvoice($data['invoice'])
               ;
 
+        $order->getArea()
+              ->decreaseCompromisedCredit($order->getEstimatedCredit());
+
         $this->em->flush();
 
         return redirect()->back()

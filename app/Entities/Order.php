@@ -15,9 +15,10 @@ use App\Entities\Order\Product;
  */
 class Order
 {
-    const STATUS_CREATED = 0;
-    const STATUS_PAID = 1;
-    const STATUS_MOVED = 2;
+    const STATUS_CREATED  = 0;
+    const STATUS_PAID     = 1;
+    const STATUS_RECEIVED = 2;
+    const STATUS_MOVED    = 3;
 
     const SEQUENCE_PATTERN = "@(^[A-Z]+)-(E|F|L)-?([\d]*)/([\d]{2})-([\d|-]+)@";
 
@@ -452,6 +453,7 @@ class Order
         switch ($status) {
             case self::STATUS_CREATED: return "Pending";
             case self::STATUS_PAID: return "Paid";
+            case self::STATUS_RECEIVED: return "Recibido";
             case self::STATUS_MOVED: return "Moved";
             return "Undefined";
         }
