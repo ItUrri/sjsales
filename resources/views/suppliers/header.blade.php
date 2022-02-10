@@ -2,40 +2,59 @@
  
 @section('content')
 <h3>{{$entity->getName()}}</h3>
-   
-<div class="row">
-    <div class="col-6 mb-3 border">
-        <div><strong>Nif</strong>: {{$entity->getNif() }}</div>
-        <div><strong>Zip</strong>: {{$entity->getZip() }}</div>
-        <div><strong>City</strong>: {{$entity->getCity() }}</div>
-        <div><strong>Address</strong>: {{$entity->getAddress() }}</div>
-        <a href="" class='btn btn-sm btn-outline-primary'>Add incidence</a>
-        <div class="input-group">
-            <a href="" class="btn btn-sm btn-outline-primary">edit</a>
-            <a href="" class="btn btn-sm btn-outline-primary">delete</a>
-        </div>
-    </div>
-    <fieldset class="col-6 mb-3 border">
-        <div class="row">
-            <legend>Contacts</legend>
-            <div class="col-12 border">
-            <a href="{{ route('suppliers.contacts.create', ['supplier' => $entity->getId()]) }}" class='btn btn-sm btn-outline-primary float-end {{request()->is("suppliers/{$entity->getId()}/contacts/create") ? "active" : "" }}'>Add contact</a>
-            </div>
-            @foreach ($entity->getContacts() as $contact)
-            <div class="col-4 border">
-                <div><strong>Name</strong>: {{$contact->getName() }}</div>
-                <div><strong>Position</strong>: {{$contact->getPosition() }}</div>
-                <div><strong>Email</strong>: {{$contact->getEmail() }}</div>
-                <div><strong>Phone</strong>: {{$contact->getPhone() }}</div>
+<div class="table-responsive table-responsive-sm">
+    <table class="table table-sm table-bordered">
+        <tr>
+            <th>NIF</th>
+            <th>Zip</th>
+            <th>Location</th>
+            <th>Address</th>
+            <th>Actions</th>
+        </tr>
+        <tr>
+            <td>{{ $entity->getNif() }}</td>
+            <td>{{ $entity->getZip() }}</td>
+            <td>{{ $entity->getCity() }}</td>
+            <td>{{ $entity->getAddress() }}</td>
+            <td>
+                <div class="input-group">
+                    <a href="" class="btn btn-sm btn-outline-primary">edit</a>
+                    <a href="" class="btn btn-sm btn-outline-primary">delete</a>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
+<h4>Contacts</h4>
+<div class="table-responsive table-responsive-sm">
+    <table class="table table-sm table-bordered">
+        <tr>
+            <th>Name</th>
+            <th>Position</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Actions</th>
+        </tr>
+        @foreach ($entity->getContacts() as $contact)
+        <tr>
+            <td>{{ $contact->getName() }}</td>
+            <td>{{ $contact->getPosition() }}</td>
+            <td>{{ $contact->getEmail() }}</td>
+            <td>{{ $contact->getPhone() }}</td>
+            <td>
                 <div class="input-group">
                     <a href="{{ route('suppliers.contacts.edit', ['supplier' => $entity->getId(), 'contact' => $contact->getId()]) }}" class='btn btn-sm btn-outline-primary {{request()->is("suppliers/{$entity->getId()}/contacts/{$contact->getId()}/edit") ? "active" : ""}}'>edit</a>
                     <a href="" class="btn btn-sm btn-outline-primary">delete</a>
                 </div>
-            </div>
-            @endforeach
-        </div>
-    </fieldset>
+            </td>
+        </tr>
+        @endforeach
+        <tr>
+            <td colspan="5"><a href="{{ route('suppliers.contacts.create', ['supplier' => $entity->getId()]) }}" class='btn btn-sm btn-outline-primary {{request()->is("suppliers/{$entity->getId()}/contacts/create") ? "active" : "" }}'>Add contact</a></td>
+        </tr>
+    </table>
 </div>
+   
 <div class="row">
     @yield('body')
 </div>

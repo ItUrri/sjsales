@@ -1,8 +1,9 @@
-<div class="table-responsive table-responsive-sm">
+<div class="table-responsive table-responsive-sm mt-2">
     <table class="table table-sm table-bordered">
         <tr>
             <th scope="col">Order nº</th>
             <th scope="col">Area</th>
+            <th scope="col">Type</th>
             <th scope="col">Products</th>
             <th scope="col">Estimated</th>
             <th scope="col">Status</th>
@@ -14,7 +15,8 @@
         @foreach ($collection as $i => $order)
         <tr>
             <td><a href="{{ route('orders.show', ['order' => $order->getId()]) }}">{{ $order->getSequence() }}</a></td>
-            <td><a href="{{ route('areas.show', ['area' => $order->getArea()->getId()]) }}">{{ $order->getArea() }}</a><small>-{{ $order->getArea()->getType() }}</small></td>
+            <td><a href="{{ route('areas.show', ['area' => $order->getArea()->getId()]) }}">{{ $order->getArea() }}</a></td>
+            <td>{{ $order->getArea()->getTypeName() }}</td>
             <td>{{ $order->getProducts()->count() }}</td>
             <td>{{ $order->getEstimatedCredit() }}€</td>
             <td>{{ $order->getStatusName() }}</td>
