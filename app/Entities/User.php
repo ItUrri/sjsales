@@ -45,6 +45,13 @@ class User implements Authenticatable
     private $remember_token;
 
     /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\ManyToMany(targetEntity="Area", mappedBy="users")
+     */
+    private $areas;
+
+    /**
      * @var DateTime 
      *
      * @ORM\Column(name="created", type="datetime")
@@ -63,6 +70,7 @@ class User implements Authenticatable
      */
     public function __construct()
     {
+        $this->areas = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -121,6 +129,41 @@ class User implements Authenticatable
     public function getPassword()
     {
         return $this->password;
+    }
+
+    /**
+     * Add area.
+     *
+     * @param \Area $area
+     *
+     * @return User
+     */
+    public function addArea(Area $area)
+    {
+        $this->areas[] = $area;
+        return $this;
+    }
+
+    /**
+     * Remove area.
+     *
+     * @param \Area $area
+     *
+     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+     */
+    public function removeArea(Area $area)
+    {
+        return $this->areas->removeElement($area);
+    }
+
+    /**
+     * Get areas.
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getAreas()
+    {
+        return $this->areas;
     }
 
     /**

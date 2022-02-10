@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Doctrine\ORM\EntityManagerInterface;
 
 use App\Entities\Area,
+    App\Entities\User,
+    App\Entities\Order,
     App\Entities\Department,
     App\Http\Requests\AreaRequest;
 
@@ -49,14 +51,17 @@ class AreaController extends Controller
      */
     public function create()
     {
-        $collection = $this->em->getRepository(Department::class)
+        $departments = $this->em->getRepository(Department::class)
                                ->findBy([], ['name' => 'asc']);
+        $users = $this->em->getRepository(User::class)
+                                ->findBy([], ['email' => 'asc']);
 
         return view('areas.form', [
             'route' => route('areas.store'),
             'method' => 'POST',
             'entity' => new Area,
-            'departments' => $collection,
+            'users' => $users,
+            'departments' => $departments,
         ]); 
     }
 
@@ -91,6 +96,8 @@ class AreaController extends Controller
 
         return view('areas.show', [
             'entity' => $entity,
+            'collection' => $this->em->getRepository(Order::class)
+                                 ->fromArea($entity, 4),
         ]); 
     }
 
@@ -106,14 +113,17 @@ class AreaController extends Controller
             abort(404);
         }
 
-        $collection = $this->em->getRepository(Department::class)
-                               ->findBy([], ['name' => 'asc']);
+        $departments = $this->em->getRepository(Department::class)
+                                ->findBy([], ['name' => 'asc']);
+        $users = $this->em->getRepository(User::class)
+                                ->findBy([], ['email' => 'asc']);
 
         return view('areas.form', [
             'route' => route('areas.update', ['area' => $entity->getId()]),
             'method' => 'PUT',
             'entity' => $entity,
-            'departments' => $collection,
+            'users' => $users,
+            'departments' => $departments,
         ]); 
     }
 
@@ -174,6 +184,13 @@ class AreaController extends Controller
             $entity->setLCode($data['lcode']);
         }
 
+        $entity->getUsers()->clear();
+        if (isset($data['users']) && is_array($data['users'])) {
+            $er = $this->em->getRepository(User::class);
+            foreach ($data['users'] as $id) {
+                $entity->addUser($er->find($id));
+            }
+        }
         $entity->getDepartments()->clear();
         if (isset($data['departments']) && is_array($data['departments'])) {
             $er = $this->em->getRepository(Department::class);

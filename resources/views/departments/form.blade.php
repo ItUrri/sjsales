@@ -19,6 +19,7 @@
     </div>
 
     {{ Form::submit('Save', ['class' => 'btn btn-sm btn-success float-end']) }}
+    <a href="{{route('departments.index')}}" class="btn btn-sm">Cancel</a>
 
     {{ Form::close() }}
    

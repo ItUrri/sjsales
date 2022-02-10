@@ -37,8 +37,10 @@
             </td>
         </tr>
         @endforeach
+        @if ($pagination ?? '')
         <tr align="center">
-            <td colspan="9">{# $collection->links("pagination::bootstrap-4") #}</td>
+            <td colspan="9">{{ $collection->links("pagination::bootstrap-4") }}</td>
         </tr>
+        @endif
     </table>
 </div>

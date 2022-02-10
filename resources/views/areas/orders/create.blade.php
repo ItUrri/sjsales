@@ -23,7 +23,7 @@
 
         {{ Form::label('custom', 'Intercalate', ['class' => 'form-label']) }}
         {{ Form::checkbox("custom", null, false, ['class' => 'form-check-input', 'onchange' => 'displayCustom(this)']) }}         
-        <div id="custom-fields" class="row d-none" onload="initSequence()">
+        <div id="custom-fields" class="row d-none">
             <div class="col-md-12 text-center small" id="sequence-alert"></div>
             <div class="col-md-4 border">
                 {{ Form::label('previous', 'Select previous', ['class' => 'form-label']) }}
@@ -65,7 +65,7 @@
     </fieldset>
 
     <div class="col-md-12 border">
-        <button type="button" class="add-to-collection btn btn-sm btn-default">New product</button>
+        <button type="button" class="btn btn-sm btn-default" onclick="addToCollection()">New product</button>
         {{ Form::submit('Save', ['class' => 'btn btn-sm btn-success float-end']) }}
         <a href="{{ route('areas.show', ['area' => $entity->getId()]) }}" class="btn btn-sm float-end">Cancel</a>
     </div>
@@ -77,15 +77,12 @@
 @section('scripts')
     <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
     <script>
-        $(document).ready(function() {
-            $('.add-to-collection').on('click', function(e) {
-                e.preventDefault();
-                var container = $('.collection-container');
-                var count = container.children().length;
-                var proto = container.data('prototype').replace(/__NAME__/g, count);
-                container.append(proto);
-            });
-        });
+        function addToCollection(btn) {
+            var container = $('.collection-container');
+            var count = container.children().length;
+            var proto = container.data('prototype').replace(/__NAME__/g, count);
+            container.append(proto);
+        }
 
         function rmCollection(btn) {
             btn.closest('div').remove();
@@ -110,7 +107,6 @@
 
         var sequence = @php echo json_encode($entity->getOrders()->toArray()); @endphp;
         function selectSequence(input) {
-            console.log(sequence.length);
             var index = $(input).val();
             var prev = sequence[index];
             $('#sequence:input').val(prev.sequence + "-1");
@@ -121,5 +117,8 @@
             $('#sequence-alert').html(msg);
         }
 
+        $(document).ready(function() {
+            displayCustom($('#custom:input'));
+        });
     </script>
 @endsection

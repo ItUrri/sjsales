@@ -7,17 +7,21 @@
         <tr>
             <th>Type</th>
             <th>Acronym</th>
+            <th>Real</th>
+            <th>Compromised</th>
             <th>Available</th>
             <th>Departments</th>
+            <th>Accounts</th>
             <th>Actions</th>
         </tr>
         <tr>
             <td>{{ $entity->getTypeName() }}</td>
             <td>{{ $entity->getSerial() }}</td>
+            <td>{{ $entity->getCredit() }}€</td>
+            <td>{{ $entity->getCompromisedCredit() }}€</td>
             <td>{{ $entity->getAvailableCredit() }}€
-                <div class="small">{{$entity->getCredit() }} (real) - {{$entity->getCompromisedCredit()}} (gasto comprometido)</div></td>
-            </td>
             <td>{{ implode(", ", $entity->getDepartments()->map(function ($e) { return $e->getName(); })->toArray()) }}</td>
+            <td>{{ implode(", ", $entity->getUsers()->map(function ($e) { return $e->getEmail(); })->toArray()) }}</td>
             <td>
                 <div class="input-group">
                     <a href="{{ route('areas.orders.create', ['area' => $entity->getId()]) }}" class="btn btn-sm btn-outline-primary {{request()->is('areas/*/orders/create') ? 'active' : ''}}">new order</a>

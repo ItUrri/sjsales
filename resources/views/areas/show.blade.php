@@ -13,5 +13,5 @@
   </li>
 </ul>
 
-@include('orders.shared.table', ['collection' => $entity->getOrders()])
+@include('orders.shared.table', ['collection' => $collection, 'pagination' => true])
 @endsection

@@ -19,4 +19,13 @@ class OrderRepository extends \Doctrine\ORM\EntityRepository
 
         return $this->paginate($builder->getQuery(), $perPage, $pageName);
     }
+
+    function fromArea(\App\Entities\Area $area, $perPage = 5, $pageName= "page") 
+    {
+        $builder = $this->createQueryBuilder('o');
+        $builder->where("o.area = {$area->getId()}");
+        $builder->orderBy('o.created' , 'DESC');
+
+        return $this->paginate($builder->getQuery(), $perPage, $pageName);
+    }
 }

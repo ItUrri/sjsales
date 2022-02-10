@@ -14,6 +14,6 @@
     </div>
 </form>
   
-@include ('movements.shared.table', ['collection' => $collection])
+@include ('movements.shared.table', ['collection' => $collection, 'pagination' => true])
   
 @endsection

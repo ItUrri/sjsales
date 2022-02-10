@@ -55,6 +55,26 @@
     </div>
 
     <fieldset class="mb-3">
+        <legend>Users</legend>
+        @php $cols = 10; $i=0; @endphp
+        <table class="table">
+        @for ($row=0; $row < count($users)/$cols; $row++)
+            <tr>
+            @for ($col=0; $col < $cols; $col++)
+                <td class="">
+                @if (isset($users[$i]))
+                    @php $e = $users[$i]; $i++; @endphp
+                    {{ Form::checkbox("users[]", $e->getId(), $entity->getusers()->contains($e), ['class' => 'form-check-input']) }}
+                    {{ Form::label("users[]", $e->getEmail(), ['class' => 'form-check-label']) }}
+                @endif
+                </td>
+            @endfor
+            </tr>
+        @endfor
+        </table>
+    </fieldset>
+
+    <fieldset class="mb-3">
         <legend>Departments</legend>
         @php $cols = 10; $i=0; @endphp
         <table class="table">
@@ -74,12 +94,9 @@
         </table>
     </fieldset>
 
-    <fieldset class="mb-3">
-        <legend>Users (todo)</legend>
-    </fieldset>
-
     <div>
-        {{ Form::submit('Save', ['class' => 'btn btn-success float-end']) }}
+        {{ Form::submit('Save', ['class' => 'btn btn-success btn-sm float-end']) }}
+        <a href="{{ route('areas.index') }}" class="btn btn-sm float-end">Cancel</a>
     </div>
 
 </form>

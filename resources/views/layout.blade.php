@@ -12,6 +12,9 @@
         body {
             background-color: #f8f9fa;
         }
+        a {
+            text-decoration: none;
+        }
         #layout-container {
             background-color: white;
             margin-top: 50px;
@@ -80,6 +83,7 @@
 
      @if (count($errors) > 0)
      @php //var_dump($errors) @endphp
+        <!--
          <div class="alert alert-danger">
              <strong>Whoops!</strong> There were some problems with your input.<br><br>
              <ul>
@@ -88,6 +92,7 @@
                  @endforeach
              </ul>
          </div>
+        -->
      @endif
 
      <div class="row">

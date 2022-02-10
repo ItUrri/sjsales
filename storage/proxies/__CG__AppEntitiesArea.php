@@ -66,10 +66,10 @@ class Area extends \App\Entities\Area implements \Doctrine\ORM\Proxy\Proxy
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return ['__isInitialized__', '' . "\0" . 'App\\Entities\\Area' . "\0" . 'id', '' . "\0" . 'App\\Entities\\Area' . "\0" . 'name', '' . "\0" . 'App\\Entities\\Area' . "\0" . 'acronym', '' . "\0" . 'App\\Entities\\Area' . "\0" . 'lcode', '' . "\0" . 'App\\Entities\\Area' . "\0" . 'type', '' . "\0" . 'App\\Entities\\Area' . "\0" . 'compromisedCredit', '' . "\0" . 'App\\Entities\\Area' . "\0" . 'credit', '' . "\0" . 'App\\Entities\\Area' . "\0" . 'departments', '' . "\0" . 'App\\Entities\\Area' . "\0" . 'orders', '' . "\0" . 'App\\Entities\\Area' . "\0" . 'created', '' . "\0" . 'App\\Entities\\Area' . "\0" . 'updated'];
+            return ['__isInitialized__', '' . "\0" . 'App\\Entities\\Area' . "\0" . 'id', '' . "\0" . 'App\\Entities\\Area' . "\0" . 'name', '' . "\0" . 'App\\Entities\\Area' . "\0" . 'acronym', '' . "\0" . 'App\\Entities\\Area' . "\0" . 'lcode', '' . "\0" . 'App\\Entities\\Area' . "\0" . 'type', '' . "\0" . 'App\\Entities\\Area' . "\0" . 'compromisedCredit', '' . "\0" . 'App\\Entities\\Area' . "\0" . 'credit', '' . "\0" . 'App\\Entities\\Area' . "\0" . 'departments', '' . "\0" . 'App\\Entities\\Area' . "\0" . 'users', '' . "\0" . 'App\\Entities\\Area' . "\0" . 'orders', '' . "\0" . 'App\\Entities\\Area' . "\0" . 'created', '' . "\0" . 'App\\Entities\\Area' . "\0" . 'updated'];
         }
 
-        return ['__isInitialized__', '' . "\0" . 'App\\Entities\\Area' . "\0" . 'id', '' . "\0" . 'App\\Entities\\Area' . "\0" . 'name', '' . "\0" . 'App\\Entities\\Area' . "\0" . 'acronym', '' . "\0" . 'App\\Entities\\Area' . "\0" . 'lcode', '' . "\0" . 'App\\Entities\\Area' . "\0" . 'type', '' . "\0" . 'App\\Entities\\Area' . "\0" . 'compromisedCredit', '' . "\0" . 'App\\Entities\\Area' . "\0" . 'credit', '' . "\0" . 'App\\Entities\\Area' . "\0" . 'departments', '' . "\0" . 'App\\Entities\\Area' . "\0" . 'orders', '' . "\0" . 'App\\Entities\\Area' . "\0" . 'created', '' . "\0" . 'App\\Entities\\Area' . "\0" . 'updated'];
+        return ['__isInitialized__', '' . "\0" . 'App\\Entities\\Area' . "\0" . 'id', '' . "\0" . 'App\\Entities\\Area' . "\0" . 'name', '' . "\0" . 'App\\Entities\\Area' . "\0" . 'acronym', '' . "\0" . 'App\\Entities\\Area' . "\0" . 'lcode', '' . "\0" . 'App\\Entities\\Area' . "\0" . 'type', '' . "\0" . 'App\\Entities\\Area' . "\0" . 'compromisedCredit', '' . "\0" . 'App\\Entities\\Area' . "\0" . 'credit', '' . "\0" . 'App\\Entities\\Area' . "\0" . 'departments', '' . "\0" . 'App\\Entities\\Area' . "\0" . 'users', '' . "\0" . 'App\\Entities\\Area' . "\0" . 'orders', '' . "\0" . 'App\\Entities\\Area' . "\0" . 'created', '' . "\0" . 'App\\Entities\\Area' . "\0" . 'updated'];
     }
 
     /**
@@ -293,6 +293,28 @@ class Area extends \App\Entities\Area implements \Doctrine\ORM\Proxy\Proxy
     /**
      * {@inheritDoc}
      */
+    public function increaseCredit(float $credit)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'increaseCredit', [$credit]);
+
+        return parent::increaseCredit($credit);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function decreaseCredit(float $credit)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'decreaseCredit', [$credit]);
+
+        return parent::decreaseCredit($credit);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function increaseCompromisedCredit(float $credit)
     {
 
@@ -365,6 +387,39 @@ class Area extends \App\Entities\Area implements \Doctrine\ORM\Proxy\Proxy
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'getAvailableCredit', []);
 
         return parent::getAvailableCredit();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function addUser(\App\Entities\User $user)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'addUser', [$user]);
+
+        return parent::addUser($user);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function removeUser(\App\Entities\User $user)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'removeUser', [$user]);
+
+        return parent::removeUser($user);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getUsers()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getUsers', []);
+
+        return parent::getUsers();
     }
 
     /**

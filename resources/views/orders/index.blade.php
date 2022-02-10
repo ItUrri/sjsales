@@ -16,6 +16,6 @@
     -->
 </form>
   
-@include('orders.shared.table', ['collection' => $orders])
+@include('orders.shared.table', ['collection' => $orders, 'pagination' => true])
   
 @endsection

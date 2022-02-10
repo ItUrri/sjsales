@@ -85,7 +85,8 @@ class MovementController extends Controller
               ;
 
         $order->getArea()
-              ->decreaseCompromisedCredit($order->getEstimatedCredit());
+              ->decreaseCompromisedCredit($order->getEstimatedCredit())
+              ->decreaseCredit($order->getCredit());
 
         $this->em->flush();
 

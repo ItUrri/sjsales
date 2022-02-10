@@ -83,6 +83,17 @@ class Area
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
+     * @ORM\ManyToMany(targetEntity="User", inversedBy="areas")
+     * @ORM\JoinTable(name="a_users", 
+     *  joinColumns={@ORM\JoinColumn(name="area_id", referencedColumnName="id")},
+     *  inverseJoinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")}
+     *  )
+     */
+    private $users;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
      * @ORM\OneToMany(targetEntity="App\Entities\Order", mappedBy="area", cascade={"persist","merge"})
      */
     private $orders;
@@ -108,6 +119,7 @@ class Area
     {
         $this->departments = new \Doctrine\Common\Collections\ArrayCollection();
         $this->orders      = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->users       = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -234,8 +246,24 @@ class Area
     }
 
     /**
-     * Get availableCredit.
-     *
+     * @param float $credit
+     * @return Area
+     */
+    public function increaseCredit(float $credit)
+    {
+        $this->credit += $credit;
+    }
+
+    /**
+     * @param float $credit
+     * @return Area
+     */
+    public function decreaseCredit(float $credit)
+    {
+        $this->credit -= $credit;
+    }
+
+    /**
      * @param float $credit
      * @return Area
      */
@@ -245,8 +273,6 @@ class Area
     }
 
     /**
-     * Get availableCredit.
-     *
      * @param float $credit
      * @return Area
      */
@@ -314,6 +340,41 @@ class Area
     }
 
     /**
+     * Add User.
+     *
+     * @param \User $user
+     *
+     * @return Area
+     */
+    public function addUser(User $user)
+    {
+        $this->users[] = $user;
+        return $this;
+    }
+
+    /**
+     * Remove user.
+     *
+     * @param \User $user
+     *
+     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+     */
+    public function removeUser(User $user)
+    {
+        return $this->users->removeElement($user);
+    }
+
+    /**
+     * Get users.
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getUsers()
+    {
+        return $this->users;
+    }
+
+    /**
      * Add Department.
      *
      * @param \Department $department
@@ -322,7 +383,6 @@ class Area
      */
     public function addDepartment(Department $department)
     {
-        $department->setArea($this);
         $this->departments[] = $department;
         return $this;
     }
