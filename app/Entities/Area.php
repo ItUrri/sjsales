@@ -95,6 +95,7 @@ class Area
      * @var \Doctrine\Common\Collections\Collection
      *
      * @ORM\OneToMany(targetEntity="App\Entities\Order", mappedBy="area", cascade={"persist","merge"})
+     * @ORM\OrderBy({"created" = "DESC"})
      */
     private $orders;
 
