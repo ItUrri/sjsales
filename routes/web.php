@@ -15,9 +15,11 @@ use App\Http\Controllers;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', function () {return view('home');});
+Route::get('auth', function () {return view('auth.index');})->name('auth');
+Route::get('logout', [\App\Http\Controllers\AuthController::class, 'logout'])->name('logout');
+Route::post('login', [\App\Http\Controllers\AuthController::class, 'login'])->name('login');
+Route::post('register', [\App\Http\Controllers\AuthController::class, 'register'])->name('register');
 
 /*
  *
@@ -29,7 +31,6 @@ Route::get('/', function () {
  *  PUT/PATCH   /photos/{photo}         update      photos.update
  *  DELETE      /photos/{photo}         destroy     photos.destroy
  */
-
 Route::resources([
     'areas'       => Controllers\AreaController::class,
     'departments' => Controllers\DepartmentController::class,
@@ -39,5 +40,6 @@ Route::resources([
     'suppliers.contacts' => Controllers\Supplier\ContactController::class,
     'areas.orders' => Controllers\Areas\OrderController::class,
     'movements'      => Controllers\MovementController::class,
+], [
+    'middleware' => 'auth'
 ]);
-

@@ -1,19 +1,18 @@
 <?php
 
-namespace App\Entities\Supplier;
+namespace App\Entities;
 
 use Doctrine\ORM\Mapping as ORM;
-
-use App\Entities\Supplier;
+use \Illuminate\Contracts\Auth\Authenticatable;
 
 /**
- * Contact 
+ * User 
  *
- * @ORM\Table(name="supplier_contacts")
+ * @ORM\Table(name="users")
  * @ORM\Entity
  * @ORM\HasLifecycleCallbacks
  */
-class Contact
+class User implements Authenticatable
 {
     /**
      * @var int
@@ -27,37 +26,23 @@ class Contact
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string")
-     */
-    private $name;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="email", type="string", nullable=true)
+     * @ORM\Column(name="email", type="string")
      */
     private $email;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="phone",type="string", nullable=true)
+     * @ORM\Column(name="password", type="string")
      */
-    private $phone;
+    private $password;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="position", type="string", nullable=true)
+     * @ORM\Column(name="token", type="string", length=100, nullable=true)
      */
-    private $position;
-
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     *
-     * @ORM\ManyToOne(targetEntity="App\Entities\Supplier", inversedBy="contacts")
-     */
-    private $supplier;
+    private $remember_token;
 
     /**
      * @var DateTime 
@@ -91,37 +76,13 @@ class Contact
     }
 
     /**
-     * Set name.
-     *
-     * @param string $name
-     *
-     * @return Contact
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * Get name.
-     *
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
      * Set email.
      *
      * @param string $email
      *
-     * @return Contact
+     * @return User
      */
-    public function setEmail($email = null)
+    public function setEmail($email)
     {
         $this->email = $email;
 
@@ -139,75 +100,76 @@ class Contact
     }
 
     /**
-     * Set phone.
+     * Set password.
      *
-     * @param string $phone
+     * @param string $password
      *
-     * @return Contact
+     * @return User
      */
-    public function setPhone($phone = null)
+    public function setPassword($password)
     {
-        $this->phone = $phone;
+        $this->password = $password;
 
         return $this;
     }
 
     /**
-     * Get phone.
+     * Get password.
      *
      * @return string
      */
-    public function getPhone()
+    public function getPassword()
     {
-        return $this->phone;
+        return $this->password;
     }
 
     /**
-     * Set supplier.
-     *
-     * @param Supplier $supplier
-     *
-     * @return Contact
+     * @inheritDoc
      */
-    public function setSupplier(Supplier $supplier)
+    public function getAuthIdentifierName()
     {
-        $this->supplier = $supplier;
+        return 'id';
+    }
 
+    /**
+     * @inheritDoc
+     */
+    public function getAuthIdentifier()
+    {
+        return $this->getId();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getAuthPassword()
+    {
+        return $this->getPassword();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getRememberToken()
+    {
+        return $this->remember_token;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function setRememberToken($value)
+    {
+        $this->remember_token = $value;
         return $this;
     }
 
     /**
-     * Get supplier.
-     *
-     * @return Supplier
+     * @inheritDoc
      */
-    public function getSupplier()
+    public function getRememberTokenName()
     {
-        return $this->supplier;
-    }
-
-    /**
-     * Set position.
-     *
-     * @param string $position
-     *
-     * @return Contact
-     */
-    public function setPosition($position)
-    {
-        $this->position = $position;
-
-        return $this;
-    }
-
-    /**
-     * Get position.
-     *
-     * @return string
-     */
-    public function getPosition()
-    {
-        return $this->position;
+        return "remember_token";
     }
 
     /**
@@ -215,7 +177,7 @@ class Contact
      *
      * @param \Datetime $created
      *
-     * @return Contact
+     * @return User
      */
     public function setCreated(\Datetime $created)
     {
@@ -239,7 +201,7 @@ class Contact
      *
      * @param \Datetime $updated
      *
-     * @return Contact
+     * @return User
      */
     public function setUpdated(\Datetime $updated)
     {

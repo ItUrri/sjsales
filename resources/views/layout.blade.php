@@ -46,6 +46,17 @@
         <li class="nav-item">
           <a class="nav-link {{request()->is('suppliers*') ? 'active' : ''}}" href="{{ route('suppliers.index') }}">Suppliers</a>
         </li>
+        @auth
+            <li class="nav-item">
+              <a class="nav-link {{request()->is('auth*') ? 'active' : ''}}" href="{{ route('logout') }}">{{ Auth::user()->getEmail() }} <small>logout</small></a>
+            </li>
+        @endauth
+        
+        @guest
+            <li class="nav-item">
+              <a class="nav-link {{request()->is('auth*') ? 'active' : ''}}" href="{{ route('auth') }}">Auth</a>
+            </li>
+        @endguest
       </ul>
       <form class="d-flex">
         <input class="form-control form-control-sm me-2" type="search" placeholder="Search" aria-label="Search">
