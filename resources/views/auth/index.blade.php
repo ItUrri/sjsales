@@ -11,10 +11,16 @@
     }}
 
         {{ Form::label('email', 'Email', ['class' => 'form-label']) }}
-        {{ Form::email('email', null, ['class' => 'form-control']) }}
+        {{ Form::email('email', null, ['class' => 'form-control' . ($errors->has('email')? ' is-invalid':'')]) }}
+        @if ($errors->has('email'))
+           <div class="invalid-feedback">{!! $errors->first('email') !!}</div>
+        @endif
 
         {{ Form::label('password', 'Password', ['class' => 'form-label']) }}
-        {{ Form::password('password', ['class' => 'form-control']) }}
+        {{ Form::password('password', ['class' => 'form-control' . ($errors->has('password') ? ' is-invalid':'')]) }}
+        @if ($errors->has('password'))
+           <div class="invalid-feedback">{!! $errors->first('password') !!}</div>
+        @endif
 
         {{ Form::submit('Login', ['class' => 'btn btn-sm btn-success float-end']) }}
 
@@ -29,11 +35,16 @@
     }}
 
         {{ Form::label('email', 'Email', ['class' => 'form-label']) }}
-        {{ Form::email('email', null, ['class' => 'form-control']) }}
+        {{ Form::email('email', null, ['class' => 'form-control' . ($errors->has('email')? ' is-invalid':'')]) }}
+        @if ($errors->has('email'))
+           <div class="invalid-feedback">{!! $errors->first('email') !!}</div>
+        @endif
 
         {{ Form::label('password', 'Password', ['class' => 'form-label']) }}
-        {{ Form::password('password', ['class' => 'form-control']) }}
-
+        {{ Form::password('password', ['class' => 'form-control' . ($errors->has('password') ? ' is-invalid':'')]) }}
+        @if ($errors->has('password'))
+           <div class="invalid-feedback">{!! $errors->first('password') !!}</div>
+        @endif
         {{ Form::submit('register', ['class' => 'btn btn-sm btn-success float-end']) }}
 
     {{ Form::close() }}
