@@ -88,16 +88,16 @@ class AreaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Area $area)
     {
-        if (null === ($entity = $this->em->find(Area::class, $id))) {
-            abort(404);
-        }
+        //if (null === ($area = $this->em->find(Area::class, $id))) {
+        //    abort(404);
+        //}
 
         return view('areas.show', [
-            'entity' => $entity,
+            'entity' => $area,
             'collection' => $this->em->getRepository(Order::class)
-                                 ->fromArea($entity, 4),
+                                 ->fromArea($area, 4),
         ]); 
     }
 
