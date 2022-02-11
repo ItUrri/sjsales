@@ -1,5 +1,4 @@
 @extends('layout')
-@section('pageTitle', "Settings")
  
 @section('sidebar')
     <!--

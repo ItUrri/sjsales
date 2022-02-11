@@ -315,6 +315,17 @@ class Order extends \App\Entities\Order implements \Doctrine\ORM\Proxy\Proxy
     /**
      * {@inheritDoc}
      */
+    public function isStatus(int $status)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'isStatus', [$status]);
+
+        return parent::isStatus($status);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function getStatus()
     {
 

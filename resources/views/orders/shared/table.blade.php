@@ -9,29 +9,33 @@
             <th scope="col">Status</th>
             <th scope="col">Credit</th>
             <th scope="col">Detail</th>
-            <th scope="col">Created</th>
+            <th scope="col">Date</th>
             <th scope="col">Actions</th>
         </tr>
         @foreach ($collection as $i => $order)
         <tr>
             <td><a href="{{ route('orders.show', ['order' => $order->getId()]) }}">{{ $order->getSequence() }}</a></td>
-            <td><a href="{{ route('areas.show', ['area' => $order->getArea()->getId()]) }}">{{ $order->getArea() }}</a></td>
+            <td><a href="{{ route('areas.show', ['area' => $order->getArea()->getId()]) }}">{{ $order->getArea()->getName() }}</a></td>
             <td>{{ $order->getArea()->getTypeName() }}</td>
             <td>{{ $order->getProducts()->count() }}</td>
             <td>{{ $order->getEstimatedCredit() }}€</td>
             <td>{{ $order->getStatusName() }}</td>
             <td>@if ($order->getCredit()) {{ $order->getCredit() }}€ @endif</td>
             <td>{{ $order->getDetail() }}</td>
-            <td>{{ $order->getCreated()->format("d/m/Y H:i") }}</td>
+            <td>{{ $order->getDate()->format("d/m/Y H:i") }}</td>
             <td>
             {{ Form::open([
                 'route' => ['orders.destroy', $order->getId()], 
                 'method' => 'delete',
             ]) }}
                 <div class="btn-group btn-group-sm float-end" role="group">
-                    <a href="{{ route('orders.show', ['order' => $order->getId()]) }}" class="btn btn-primary">view</a>
-                    <a href="{{ route('orders.edit', ['order' => $order->getId()]) }}" class="btn btn-primary"><i class="fa fa-pencil"></i> edit</a>
-                    {{ Form::submit('delete', ['class' => 'btn btn-primary']) }}
+                    <a href="{{ route('orders.show', ['order' => $order->getId()]) }}" class="btn btn-outline-primary">view</a>
+                    <a href="" class="btn btn-outline-primary"><i class="fa fa-pencil"></i> edit</a>
+                    @if ($order->isStatus(\App\Entities\Order::STATUS_PAID))
+                    <a href="" class="btn btn-outline-primary">receive</a>
+                    @else 
+                    {{ Form::submit('delete', ['class' => 'btn btn-outline-primary']) }}
+                    @endif
                 </div>
             {{ Form::close() }}
             </td>

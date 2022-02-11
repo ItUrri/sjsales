@@ -58,6 +58,9 @@
             </td>
         </tr>
         @endforeach
+        <tr align="center">
+            <td colspan="10">{{ $collection->links("pagination::bootstrap-4") }}</td>
+        </tr>
         </tbody>
     </table> 
 </div>

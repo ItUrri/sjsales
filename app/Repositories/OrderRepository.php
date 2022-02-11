@@ -15,7 +15,7 @@ class OrderRepository extends \Doctrine\ORM\EntityRepository
     function lastest($perPage = 5, $pageName= "page") 
     {
         $builder = $this->createQueryBuilder('o');
-        $builder->orderBy('o.created' , 'DESC');
+        $builder->orderBy('o.date' , 'DESC');
 
         return $this->paginate($builder->getQuery(), $perPage, $pageName);
     }
@@ -24,7 +24,7 @@ class OrderRepository extends \Doctrine\ORM\EntityRepository
     {
         $builder = $this->createQueryBuilder('o');
         $builder->where("o.area = {$area->getId()}");
-        $builder->orderBy('o.created' , 'DESC');
+        $builder->orderBy('o.date' , 'DESC');
 
         return $this->paginate($builder->getQuery(), $perPage, $pageName);
     }

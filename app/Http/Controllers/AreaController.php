@@ -107,21 +107,17 @@ class AreaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Area $area)
     {
-        if (null === ($entity = $this->em->find(Area::class, $id))) {
-            abort(404);
-        }
-
         $departments = $this->em->getRepository(Department::class)
                                 ->findBy([], ['name' => 'asc']);
         $users = $this->em->getRepository(User::class)
                                 ->findBy([], ['email' => 'asc']);
 
         return view('areas.form', [
-            'route' => route('areas.update', ['area' => $entity->getId()]),
+            'route' => route('areas.update', ['area' => $area->getId()]),
             'method' => 'PUT',
-            'entity' => $entity,
+            'entity' => $area,
             'users' => $users,
             'departments' => $departments,
         ]); 
@@ -134,16 +130,11 @@ class AreaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(AreaRequest $request, $id)
+    public function update(AreaRequest $request, Area $area)
     {
-        if (null === ($entity = $this->em->find(Area::class, $id))) {
-            abort(404);
-        }
-
-        $this->hydrateData($entity, $request->all());
-
+        $this->hydrateData($area, $request->all());
         $this->em->flush();
-        return redirect()->route('areas.show', ['area' => $entity->getId()])
+        return redirect()->route('areas.show', ['area' => $area->getId()])
                          ->with('success', 'Successfully updated');
     }
 
@@ -153,13 +144,9 @@ class AreaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Area $area)
     {
-        if (null === ($entity = $this->em->find(Area::class, $id))) {
-            abort(404);
-        }
-
-        $this->em->remove($entity);
+        $this->em->remove($area);
         $this->em->flush();
 
         return redirect()->back()->with('success', 'Successfully removed');

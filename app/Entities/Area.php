@@ -95,7 +95,7 @@ class Area
      * @var \Doctrine\Common\Collections\Collection
      *
      * @ORM\OneToMany(targetEntity="App\Entities\Order", mappedBy="area", cascade={"persist","merge"})
-     * @ORM\OrderBy({"created" = "DESC"})
+     * @ORM\OrderBy({"date" = "DESC"})
      */
     private $orders;
 
@@ -253,6 +253,7 @@ class Area
     public function increaseCredit(float $credit)
     {
         $this->credit += $credit;
+        return $this;
     }
 
     /**
@@ -262,6 +263,7 @@ class Area
     public function decreaseCredit(float $credit)
     {
         $this->credit -= $credit;
+        return $this;
     }
 
     /**
@@ -271,6 +273,7 @@ class Area
     public function increaseCompromisedCredit(float $credit)
     {
         $this->compromisedCredit += $credit;
+        return $this;
     }
 
     /**
@@ -280,6 +283,7 @@ class Area
     public function decreaseCompromisedCredit(float $credit)
     {
         $this->compromisedCredit -= $credit;
+        return $this;
     }
 
     /**

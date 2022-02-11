@@ -40,15 +40,11 @@ class ContactController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($id)
+    public function create(Supplier $supplier)
     {
-        if (null === ($entity = $this->em->find(Supplier::class, $id))) {
-            abort(404);
-        }
-
         return view('suppliers.contacts.form', [
-            'route' => route('suppliers.contacts.store', ['supplier' => $id]),
-            'entity'  => $entity,
+            'route' => route('suppliers.contacts.store', ['supplier' => $supplier->getId()]),
+            'entity'  => $supplier,
             'contact' => new Contact,
         ]); 
     }
@@ -59,18 +55,14 @@ class ContactController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store($id, ContactRequest $request)
+    public function store(Supplier $supplier, ContactRequest $request)
     {
-        if (null === ($entity = $this->em->find(Supplier::class, $id))) {
-            abort(404);
-        }
-
         $contact = new Contact;
-        $contact->setSupplier($entity);
+        $contact->setSupplier($supplier);
         $this->hydrateData($contact, $request->all());
         $this->em->persist($contact);
         $this->em->flush();
-        return redirect()->route('suppliers.show', ['supplier' => $id])
+        return redirect()->route('suppliers.show', ['supplier' => $supplier->getId()])
                          ->with('success', 'Successfully created');
     }
 
@@ -91,22 +83,19 @@ class ContactController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id, $cid)
+    public function edit(Supplier $supplier, Contact $contact)
     {
-        if (null === ($entity = $this->em->find(Supplier::class, $id))) {
-            abort(404);
-        }
-        if (null === ($contact = $this->em->find(Contact::class, $cid))) {
-            abort(404);
-        }
-        if (!$entity->getContacts()->contains($contact)) {
+        if (!$supplier->getContacts()->contains($contact)) {
             abort(404);
         }
 
         return view('suppliers.contacts.form', [
-            'route' => route('suppliers.contacts.update', ['supplier' => $id, 'contact' => $cid]),
+            'route' => route('suppliers.contacts.update', [
+                'supplier' => $supplier->getId(), 
+                'contact' => $contact->getId(),
+            ]),
             'method' => 'PUT',
-            'entity'  => $entity,
+            'entity'  => $supplier,
             'contact' => $contact,
         ]); 
     }
@@ -118,20 +107,14 @@ class ContactController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(ContactRequest $request, $id, $cid)
+    public function update(ContactRequest $request, Supplier $supplier, Contact $contact)
     {
-        if (null === ($entity = $this->em->find(Supplier::class, $id))) {
-            abort(404);
-        }
-        if (null === ($contact = $this->em->find(Contact::class, $cid))) {
-            abort(404);
-        }
-        if (!$entity->getContacts()->contains($contact)) {
+        if (!$supplier->getContacts()->contains($contact)) {
             abort(404);
         }
         $this->hydrateData($contact, $request->all());
         $this->em->flush();
-        return redirect()->route('suppliers.show', ['supplier' => $id])
+        return redirect()->route('suppliers.show', ['supplier' => $supplier->getId()])
                          ->with('success', 'Successfully updated');
     }
 
@@ -141,9 +124,15 @@ class ContactController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Supplier $supplier, Contact $contact)
     {
-        //
+        if (!$supplier->getContacts()->contains($contact)) {
+            abort(404);
+        }
+        $this->em->remove($contact);
+        $this->em->flush();
+
+        return redirect()->back()->with('success', 'Successfully removed');
     }
 
     /**

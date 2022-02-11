@@ -270,6 +270,18 @@ class Order implements \JsonSerializable
     }
 
     /**
+     * Is status.
+     *
+     * @param int $status
+     *
+     * @return bool
+     */
+    public function isStatus(int $status)
+    {
+        return $this->getStatus() === $status;
+    }
+
+    /**
      * Get status.
      *
      * @return int
@@ -498,7 +510,7 @@ class Order implements \JsonSerializable
         return [
             'id' => $this->getId(),
             'sequence' => $this->getSequence(),
-            'date' => $this->getDate()->format("d/m/Y H:i"),
+            'date' => $this->getDate()->format("Y-m-d"),
         ];
     }
 }

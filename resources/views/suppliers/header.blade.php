@@ -42,10 +42,15 @@
             <td>{{ $contact->getEmail() }}</td>
             <td>{{ $contact->getPhone() }}</td>
             <td>
-                <div class="input-group">
-                    <a href="{{ route('suppliers.contacts.edit', ['supplier' => $entity->getId(), 'contact' => $contact->getId()]) }}" class='btn btn-sm btn-outline-primary {{request()->is("suppliers/{$entity->getId()}/contacts/{$contact->getId()}/edit") ? "active" : ""}}'>edit</a>
-                    <a href="" class="btn btn-sm btn-outline-primary">delete</a>
-                </div>
+                {{ Form::open([
+                    'route' => ['suppliers.contacts.destroy', $entity->getId(), $contact->getId()], 
+                    'method' => 'delete',
+                ]) }}
+                    <div class="btn-group btn-group-sm float-end" role="group">
+                        <a href="{{ route('suppliers.contacts.edit', ['supplier' => $entity->getId(), 'contact' => $contact->getId()]) }}" class='btn btn-sm btn-outline-primary {{request()->is("suppliers/{$entity->getId()}/contacts/{$contact->getId()}/edit") ? "active" : ""}}'>edit</a>
+                        {{ Form::submit('delete', ['class' => 'btn btn-outline-primary']) }}
+                    </div>
+                {{ Form::close() }}
             </td>
         </tr>
         @endforeach

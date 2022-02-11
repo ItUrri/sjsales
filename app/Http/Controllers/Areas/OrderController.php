@@ -32,11 +32,8 @@ class OrderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($id)
+    public function index(Area $area)
     {
-        if (null === ($entity = $this->em->find(Area::class, $id))) {
-            abort(404);
-        }
     }
 
     /**
@@ -44,12 +41,8 @@ class OrderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($id, Request $request)
+    public function create(Area $area, Request $request)
     {
-        if (null === ($entity = $this->em->find(Area::class, $id))) {
-            abort(404);
-        }
-
         $collection = $this->em->getRepository(Supplier::class)
                                ->findBy([], ['name' => 'asc']);
 
@@ -61,7 +54,7 @@ class OrderController extends Controller
         $order = new Order;
         $this->hydrateData($order, $request->old());
         return view('areas.orders.create', [
-            'entity'    => $entity,
+            'entity'    => $area,
             'order'     => $order,
             'suppliers' => $map,
         ]); 
@@ -73,16 +66,13 @@ class OrderController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store($id, OrderPostRequest $request)
+    public function store(Area $area, OrderPostRequest $request)
     {
         //dd($request->all());
-        if (null === ($entity = $this->em->find(Area::class, $id))) {
-            abort(404);
-        }
 
         $last = $this->em->getRepository(Order::class)->findOneBy([
-            'area' => $entity,
-        ], ['created' => 'DESC']);
+            'area' => $area,
+        ], ['date' => 'DESC']);
 
         if ($last) {
             $matches = [];
@@ -94,12 +84,15 @@ class OrderController extends Controller
 
         $order = new Order;
         $this->hydrateData($order, $request->all());
-        $order->setSequence(implode("-", [
-            "{$entity->getSerial()}/{$entity->getCreated()->format('y')}",
-            isset($sequence) ? $sequence : 1
-        ])); //FIXME
+        if (!$order->getSequence()) {
+            $order->setDate(new \DateTime);
+            $order->setSequence(implode("-", [
+                "{$area->getSerial()}/{$order->getDate()->format('y')}",
+                isset($sequence) ? $sequence : 1
+            ])); //FIXME
+        }
 
-        $entity->addOrder($order)
+        $area->addOrder($order)
             ->increaseCompromisedCredit($order->getEstimatedCredit())
             ;
         $this->em->flush();
@@ -115,11 +108,11 @@ class OrderController extends Controller
      */
     protected function hydrateData(Order $entity, array $data = [])
     {
-        if (isset($data['credit'])) $entity->setEstimatedCredit($data['credit']);
-        if (isset($data['detail'])) $entity->setDetail($data['detail']);
-        if (isset($data['date']))   $entity->setDate(new \Datetime($data['date']));
-
-        if (!isset($data['products'])) $data['products'] = [[]];
+        if (isset($data['credit']))     $entity->setEstimatedCredit($data['credit']);
+        if (isset($data['detail']))     $entity->setDetail($data['detail']);
+        if (isset($data['sequence']))   $entity->setSequence($data['sequence']);
+        if (isset($data['date']))       $entity->setDate(new \Datetime($data['date']));
+        if (!isset($data['products']))  $data['products'] = [[]];
         foreach ($data['products'] as $raw) {
             $product = new Product;
             if (isset($raw['supplier'])) {
