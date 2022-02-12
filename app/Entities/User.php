@@ -66,6 +66,13 @@ class User implements Authenticatable
     private $updated;
 
     /**
+     * @var DateTime 
+     *
+     * @ORM\Column(name="login", type="datetime", nullable=true)
+     */
+    private $lastLogin;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -261,6 +268,30 @@ class User implements Authenticatable
     public function getUpdated()
     {
         return $this->updated;
+    }
+
+    /**
+     * Set lastLogin.
+     *
+     * @param \Datetime $lastLogin
+     *
+     * @return User
+     */
+    public function setLastLogin(\Datetime $lastLogin)
+    {
+        $this->lastLogin = $lastLogin;
+
+        return $this;
+    }
+
+    /**
+     * Get lastLogin.
+     *
+     * @return \Datetime
+     */
+    public function getLastLogin()
+    {
+        return $this->lastLogin;
     }
 
     /**
