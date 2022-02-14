@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Listeners;
+namespace App\Listeners\Users;
 
+use Illuminate\Auth\Events\Login;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Auth\Events\Login;
 use Doctrine\ORM\EntityManagerInterface;
 
 class LogSuccessfullLogin

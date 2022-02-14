@@ -4,7 +4,8 @@ namespace App\Entities;
 
 use Doctrine\ORM\Mapping as ORM;
 
-use App\Entities\Order\Product;
+use App\Entities\Order\Product,
+    App\Entities\Supplier\Incidence;
 
 /**
  * Order
@@ -76,9 +77,16 @@ class Order implements \JsonSerializable
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\OneToMany(targetEntity="App\Entities\Movement", mappedBy="order", cascade={"persist","merge"})
+     * @ORM\OneToMany(targetEntity="App\Entities\Movement", mappedBy="order")
      */
     private $movements;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\OneToMany(targetEntity="App\Entities\Supplier\Incidence", mappedBy="order")
+     */
+    private $incidences;
 
     /**
      * @var float
@@ -120,8 +128,9 @@ class Order implements \JsonSerializable
      */
     public function __construct()
     {
-        $this->products  = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->movements = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->products   = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->movements  = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->incidences = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -247,7 +256,7 @@ class Order implements \JsonSerializable
      *
      * @return Order 
      */
-    public function setInvoice($invoice)
+    public function setInvoice($invoice = null)
     {
         $this->invoice = $invoice;
 

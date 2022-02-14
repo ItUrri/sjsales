@@ -1,10 +1,10 @@
-@extends('spanel_layout')
+@extends('suppliers/header')
  
-@section('content')
+@section('body')
    
     {{ Form::open([
-        'route' => 'suppliers.store', 
-        'method' => 'POST', 
+        'route' => ['suppliers.update', 'supplier' => $entity->getId()],
+        'method' => 'PUT', 
         'class' => 'row',
         'novalidate' => true,
     ]) }}
@@ -48,44 +48,25 @@
            <div class="invalid-feedback">{!! $errors->first('address') !!}</div>
         @endif
     </div>
+
+    <div class="col-md-12 mb-3 has-validations">
+        {{ Form::checkbox('acceptable', true, $entity->getAcceptable(), ['class' => 'form-check-input' . ($errors->has('acceptable') ? ' is-invalid' :'')]) }}
+        {{ Form::label("acceptable", "Acceptable", ['class' => 'form-check-label']) }}
+        @if ($errors->has('acceptable'))
+           <div class="invalid-feedback">{!! $errors->first('acceptable') !!}</div>
+        @endif
+        {{ Form::checkbox('recommendable', true, $entity->getRecommendable(), ['class' => 'form-check-input' . ($errors->has('recommendable') ? ' is-invalid' :'')]) }}
+        {{ Form::label("recommendable", "recommendable", ['class' => 'form-check-label']) }}
+        @if ($errors->has('recommendable'))
+           <div class="invalid-feedback">{!! $errors->first('recommendable') !!}</div>
+        @endif
+    </div>
    
-
-    <fieldset class="col-md-12 mb-3 collection-container" 
-             data-prototype='@include("suppliers.shared.form_contact", ["index" => "__NAME__"])'>
-        <legend>Contacts</legend>
-        @foreach ($entity->getContacts() as $i => $contact)
-            @include('suppliers.shared.form_contact', ['index' => $i])
-        @endforeach
-    </fieldset>
-
-
     <div class="col-md-12 mb-3">
         {{ Form::submit('Save', ['class' => 'btn btn-sm btn-success float-end']) }}
-        <button type="button" class="add-to-collection btn btn-sm btn-default float-end">New contact</button>
-        <a href="{{ route('suppliers.index') }}" class="btn btn-sm btn-default">Cancel</a>
+        <a href="{{ route('suppliers.show', ['supplier' => $entity->getId()]) }}" class="btn btn-sm btn-default">Cancel</a>
     </div>
 
     {{ Form::close() }}
 
-@endsection
-
-<!--
--->
-@section('scripts')
-    <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            $('.add-to-collection').on('click', function(e) {
-                e.preventDefault();
-                var container = $('.collection-container');
-                var count = container.children().length;
-                var proto = container.data('prototype').replace(/__NAME__/g, count);
-                container.append(proto);
-            });
-        });
-
-        function rmCollection(btn) {
-            btn.closest('div').remove();
-        }
-    </script>
 @endsection

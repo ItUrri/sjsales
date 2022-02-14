@@ -30,10 +30,10 @@
                             'route' => ['orders.products.destroy', $order->getId(), $product->getId()], 
                             'method' => 'delete',
                         ]) }}
-                            <a href="" class="btn btn-sm btn-primary">new incidence</a>
+                            <a href="{{ route('suppliers.incidences.create', ['supplier' => $product->getSupplier()->getId()]) }}" class="btn btn-sm btn-primary">new incidence</a>
                             <div class="btn-group btn-group-sm float-end" role="group">
-                                <a href="{{ route('orders.products.edit', ['order' => $order->getId(), 'product' => $product->getId()]) }}" class="btn btn-primary"><i class="fa fa-pencil"></i> edit</a>
-                                {{ Form::submit('delete', ['class' => 'btn btn-primary']) }}
+                                <a href="{{ route('orders.products.edit', ['order' => $order->getId(), 'product' => $product->getId()]) }}" class="btn btn-primary disabled"><i class="fa fa-pencil"></i> edit</a>
+                                {{ Form::submit('delete', ['class' => 'btn btn-primary disabled']) }}
                             </div>
                         {{ Form::close() }}
                     </td>

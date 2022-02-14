@@ -79,6 +79,7 @@ class AuthController extends Controller
             $user->setPassword(Hash::make($credentials['password']));
             $this->em->persist($user);
             $this->em->flush();
+            Auth::loginUsingId($user->getId());
             return redirect()->intended('/');
         }
  

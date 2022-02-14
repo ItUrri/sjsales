@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Listeners;
+namespace App\Listeners\Users;
 
 use App\Events\OrderEvent;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 
-class UserAwareEntityInjection
+class EntityInjection
 {
     /**
      * Create the event listener.

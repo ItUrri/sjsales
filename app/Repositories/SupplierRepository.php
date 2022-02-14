@@ -12,10 +12,10 @@ class SupplierRepository extends \Doctrine\ORM\EntityRepository
 {
     use \LaravelDoctrine\ORM\Pagination\PaginatesFromRequest;
 
-    function lastest($perPage = 5, $pageName= "page") 
+    function all($perPage = 10, $pageName= "page") 
     {
         $builder = $this->createQueryBuilder('o');
-        $builder->orderBy('o.created' , 'DESC');
+        $builder->orderBy('o.name' , 'ASC');
 
         return $this->paginate($builder->getQuery(), $perPage, $pageName);
     }

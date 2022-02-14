@@ -33,9 +33,10 @@
       <img src="/img/bootstrap-logo.svg" alt="" width="30" height="24" class="d-inline-block align-text-top">
     </a>
     <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+      @auth
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link {{request()->is('') ? 'active' : ''}}" aria-current="page" href="/">Home</a>
+          <a class="nav-link {{request()->is('') ? 'active' : ''}}" aria-current="page" href="/">{{ Auth::user()->getEmail() }}</a>
         </li>
         <li class="nav-item">
           <a class="nav-link {{request()->is('areas*', 'departments*') ? 'active' : ''}}" href="{{ route('areas.index') }}">Settings</a>
@@ -49,22 +50,26 @@
         <li class="nav-item">
           <a class="nav-link {{request()->is('suppliers*') ? 'active' : ''}}" href="{{ route('suppliers.index') }}">Suppliers</a>
         </li>
-        @auth
-            <li class="nav-item">
-              <a class="nav-link {{request()->is('auth*') ? 'active' : ''}}" href="{{ route('logout') }}">{{ Auth::user()->getEmail() }} <small>logout</small></a>
-            </li>
-        @endauth
+        <li class="nav-item">
+          <a class="nav-link {{request()->is('auth*') ? 'active' : ''}}" href="{{ route('logout') }}">logout</a>
+        </li>
         
+        </ul>
+        @endauth
         @guest
+        <!--
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
               <a class="nav-link {{request()->is('auth*') ? 'active' : ''}}" href="{{ route('auth') }}">Auth</a>
-            </li>
+        </li>
+        -->
         @endguest
-      </ul>
+     <!--
       <form class="d-flex">
         <input class="form-control form-control-sm me-2" type="search" placeholder="Search" aria-label="Search">
         <button class="btn btn-sm btn-outline-success" type="submit">Search</button>
       </form>
+    -->
     </div>
   </div>
 </nav>

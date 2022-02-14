@@ -28,7 +28,9 @@ class SupplierRequest extends FormRequest
             'zip' => 'integer|required',
             'name' => 'required|max:255',
             'city' => 'required|max:255',
-            'contacts.*.name'  => 'required|max:255',
+            'contacts.*.name'  => 'nullable|required|max:255',
+            'contacts.*.email' => 'nullable|email',
+            'contacts.*.phone' => 'nullable|integer',
         ];
     }
 

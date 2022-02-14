@@ -73,7 +73,7 @@ class Area
      * @var \Doctrine\Common\Collections\Collection
      *
      * @ORM\ManyToMany(targetEntity="Department", inversedBy="areas")
-     * @ORM\JoinTable(name="a_departments", 
+     * @ORM\JoinTable(name="area_department_rel", 
      *  joinColumns={@ORM\JoinColumn(name="area_id", referencedColumnName="id")},
      *  inverseJoinColumns={@ORM\JoinColumn(name="dptm_id", referencedColumnName="id")}
      *  )
@@ -84,7 +84,7 @@ class Area
      * @var \Doctrine\Common\Collections\Collection
      *
      * @ORM\ManyToMany(targetEntity="User", inversedBy="areas")
-     * @ORM\JoinTable(name="a_users", 
+     * @ORM\JoinTable(name="area_user_rel", 
      *  joinColumns={@ORM\JoinColumn(name="area_id", referencedColumnName="id")},
      *  inverseJoinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")}
      *  )
@@ -95,7 +95,7 @@ class Area
      * @var \Doctrine\Common\Collections\Collection
      *
      * @ORM\OneToMany(targetEntity="App\Entities\Order", mappedBy="area", cascade={"persist","merge"})
-     * @ORM\OrderBy({"date" = "DESC"})
+     * @ORM\OrderBy({"date" = "ASC"})
      */
     private $orders;
 

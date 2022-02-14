@@ -52,7 +52,7 @@
                 <div class="btn-group btn-group-sm float-end" role="group">
                     <a href="{{ route('suppliers.show', ['supplier' => $entity->getId()]) }}" class="btn btn-primary">view</a>
                     <a href="{{ route('suppliers.edit', ['supplier' => $entity->getId()]) }}" class="btn btn-primary"><i class="fa fa-pencil"></i> edit</a>
-                    {{ Form::submit('delete', ['class' => 'btn btn-primary']) }}
+                    {{ Form::submit('delete', ['class' => 'btn btn-primary', 'disabled' => $entity->getProducts()->count() ? true : false]) }}
                 </div>
             {{ Form::close() }}
             </td>

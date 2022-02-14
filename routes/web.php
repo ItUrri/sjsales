@@ -33,12 +33,17 @@ Route::post('register', [\App\Http\Controllers\AuthController::class, 'register'
  */
 Route::resources([
     'areas'       => Controllers\AreaController::class,
+    'areas.orders' => Controllers\Area\OrderController::class,
+    'areas.movements' => Controllers\Area\MovementController::class,
     'departments' => Controllers\DepartmentController::class,
     'orders'      => Controllers\OrderController::class,
     'orders.products' => Controllers\Order\ProductController::class,
     'suppliers'   => Controllers\SupplierController::class,
     'suppliers.contacts' => Controllers\Supplier\ContactController::class,
-    'areas.orders' => Controllers\Areas\OrderController::class,
+    'suppliers.invoiceds' => Controllers\Supplier\InvoicedController::class,
+    'suppliers.incidences' => Controllers\Supplier\IncidenceController::class,
+    'suppliers.orders' => Controllers\Supplier\OrderController::class,
+    'suppliers.movements' => Controllers\Supplier\MovementController::class,
     'movements'      => Controllers\MovementController::class,
 ], [
     'middleware' => 'auth'

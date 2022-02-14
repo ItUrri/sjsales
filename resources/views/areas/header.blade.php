@@ -32,6 +32,20 @@
         </tr>
     </table>
 </div>
+
+<ul class="nav nav-tabs justify-content-center">
+  <li class="nav-item">
+    <a class='nav-link {{request()->is("areas/{$entity->getId()}")?" active":"" }}' href="{{ route('areas.show', ['area' => $entity->getId()]) }}">Orders</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link {{request()->is('areas/*/movements')?' active':'' }}" href="{{ route('areas.movements.index', ['area' => $entity->getId()]) }}">Movements</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+  </li>
+</ul>
    
-@yield('body')
+<div class="pt-2">
+    @yield('body')
+</div>
 @endsection

@@ -4,7 +4,9 @@ namespace App\Entities;
 
 use Doctrine\ORM\Mapping as ORM;
 
-use App\Entities\Supplier;
+use App\Entities\Supplier\Contact,
+    App\Entities\Supplier\Incidence,
+    App\Entities\Supplier\Invoiced;
 
 /**
  * Supplier 
@@ -83,7 +85,21 @@ class Supplier
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\OneToMany(targetEntity="App\Entities\Order\Product", mappedBy="supplier", cascade={"persist","merge"})
+     * @ORM\OneToMany(targetEntity="App\Entities\Supplier\Incidence", mappedBy="supplier")
+     */
+    private $incidences;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\OneToMany(targetEntity="App\Entities\Supplier\Invoiced", mappedBy="supplier", cascade={"persist","merge"})
+     */
+    private $invoiced;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\OneToMany(targetEntity="App\Entities\Order\Product", mappedBy="supplier")
      */
     private $products;
 
@@ -106,8 +122,10 @@ class Supplier
      */
     public function __construct()
     {
-        $this->contacts = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->products = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->contacts   = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->products   = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->incidences = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->invoiced   = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -291,7 +309,7 @@ class Supplier
      *
      * @return Supplier
      */
-    public function addContact(Supplier\Contact $contact)
+    public function addContact(Contact $contact)
     {
         $contact->setSupplier($this);
         $this->contacts[] = $contact;
@@ -305,7 +323,7 @@ class Supplier
      *
      * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
      */
-    public function removeContact(Supplier\Contact $contact)
+    public function removeContact(Contact $contact)
     {
         return $this->contacts->removeElement($contact);
     }
@@ -318,6 +336,51 @@ class Supplier
     public function getContacts()
     {
         return $this->contacts;
+    }
+
+    /**
+     * Get incidences.
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getProducts()
+    {
+        return $this->products;
+    }
+
+    /**
+     * Get incidences.
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getIncidences()
+    {
+        return $this->incidences;
+    }
+
+    /**
+     * @param int year|null
+     * @return Invoiced|null
+     */
+    public function getInvoiced(int $year = null)
+    {
+        if ($year === null) {
+            return $this->invoiced;
+        }
+        foreach ($this->invoiced as $invoiced) {
+            if ($invoiced->getYear() === $year) return $invoiced;
+        }
+    }
+
+    /**
+     * @param Invoiced $invoiced
+     * @return Supplier
+     */
+    public function addInvoiced(Invoiced $invoiced)
+    {
+        $invoiced->setSupplier($this);
+        $this->invoiced->add($invoiced);
+        return $this;
     }
 
     /**

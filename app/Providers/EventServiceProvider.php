@@ -7,9 +7,13 @@ use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Event;
 
-use App\Events\OrderEvent;
-use App\Listeners\UserAwareEntityInjection,
-    App\Listeners\LogSuccessfullLogin;
+use App\Events\OrderEvent,
+    App\Events\MovementEvent;
+use App\Listeners\Users,
+    App\Listeners\Areas,
+    App\Listeners\Orders,
+    App\Listeners\Suppliers
+    ;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -23,10 +27,15 @@ class EventServiceProvider extends ServiceProvider
             SendEmailVerificationNotification::class,
         ],
         \Illuminate\Auth\Events\Login::class => [
-            LogSuccessfullLogin::class,
+            Users\LogSuccessfullLogin::class,
         ],
         OrderEvent::class => [
-            UserAwareEntityInjection::class,
+            Users\EntityInjection::class,
+        ],
+        MovementEvent::class => [
+            Orders\UpdateStatus::class,
+            Areas\RestoreCredit::class,
+            Suppliers\IncreaseInvoiced::class,
         ],
     ];
 

@@ -31,7 +31,7 @@ class SupplierController extends Controller
      */
     public function index()
     {
-        $suppliers = $this->em->getRepository(Supplier::class)->lastest();
+        $suppliers = $this->em->getRepository(Supplier::class)->all();
 
         return view('suppliers.index', [
             'collection' => $suppliers,
@@ -46,6 +46,7 @@ class SupplierController extends Controller
     public function create(Request $request)
     {
         $entity = new Supplier;
+        $entity->addContact(new Contact());
         $this->hydrateData($entity, $request->old());
         return view('suppliers.create', [
             'entity' => $entity,
@@ -89,7 +90,9 @@ class SupplierController extends Controller
      */
     public function edit(Supplier $supplier)
     {
-        //
+        return view('suppliers.edit', [
+            'entity' => $supplier,
+        ]); 
     }
 
     /**
@@ -99,9 +102,12 @@ class SupplierController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Supplier $supplier)
+    public function update(SupplierRequest $request, Supplier $supplier)
     {
-        //
+        $this->hydrateData($supplier, $request->all());
+        $this->em->flush();
+        return redirect()->route('suppliers.show', ['supplier' => $supplier->getId()])
+                         ->with('success', 'Successfully updated');
     }
 
     /**
@@ -131,15 +137,18 @@ class SupplierController extends Controller
         if (isset($data['zip'])) $entity->setZip($data['zip']);
         if (isset($data['city'])) $entity->setCity($data['city']);
         if (isset($data['address'])) $entity->setAddress($data['address']);
+        $entity->setAcceptable(isset($data['acceptable']));
+        $entity->setRecommendable(isset($data['recommendable']));
 
-        if (!isset($data['contacts'])) $data['contacts'] = [[]];
-        foreach ($data['contacts'] as $raw) {
-            $contact = new Contact;
-            if (isset($raw['name'])) $contact->setName($raw['name']);
-            if (isset($raw['email'])) $contact->setEmail($raw['email']);
-            if (isset($raw['phone'])) $contact->setPhone($raw['phone']);
-            if (isset($raw['position'])) $contact->setPosition($raw['position']);
-            $entity->addContact($contact);
+        if (isset($data['contacts'])) {
+            foreach ($data['contacts'] as $raw) {
+                $contact = new Contact;
+                if (isset($raw['name'])) $contact->setName($raw['name']);
+                if (isset($raw['email'])) $contact->setEmail($raw['email']);
+                if (isset($raw['phone'])) $contact->setPhone($raw['phone']);
+                if (isset($raw['position'])) $contact->setPosition($raw['position']);
+                $entity->addContact($contact);
+            }
         }
     }
 }

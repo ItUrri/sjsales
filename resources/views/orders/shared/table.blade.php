@@ -33,9 +33,8 @@
                     <a href="" class="btn btn-outline-primary"><i class="fa fa-pencil"></i> edit</a>
                     @if ($order->isStatus(\App\Entities\Order::STATUS_PAID))
                     <a href="" class="btn btn-outline-primary">receive</a>
-                    @else 
-                    {{ Form::submit('delete', ['class' => 'btn btn-outline-primary']) }}
                     @endif
+                    {{ Form::submit('delete', ['class' => 'btn btn-outline-primary' . ($order->isStatus(\App\Entities\Order::STATUS_PAID)?' disabled':'')]) }}
                 </div>
             {{ Form::close() }}
             </td>

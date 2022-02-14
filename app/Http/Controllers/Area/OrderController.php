@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Areas;
+namespace App\Http\Controllers\Area;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Illuminate\Http\Request;

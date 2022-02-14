@@ -53,7 +53,7 @@ class Movement
     /**
      * @var string
      *
-     * @ORM\Column(name="invoice", type="string", nullable=true)
+     * @ORM\Column(name="invoice", type="string")
      */
     private $invoice;
 
@@ -223,6 +223,16 @@ class Movement
     public function getOrder()
     {
         return $this->order;
+    }
+
+    /**
+     * Get area.
+     *
+     * @return Area 
+     */
+    public function getArea()
+    {
+        return $this->getOrder()->getArea();
     }
 
     /**

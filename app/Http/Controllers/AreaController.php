@@ -90,14 +90,10 @@ class AreaController extends Controller
      */
     public function show(Area $area)
     {
-        //if (null === ($area = $this->em->find(Area::class, $id))) {
-        //    abort(404);
-        //}
-
         return view('areas.show', [
             'entity' => $area,
             'collection' => $this->em->getRepository(Order::class)
-                                 ->fromArea($area, 4),
+                                 ->fromArea($area),
         ]); 
     }
 

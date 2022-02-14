@@ -66,10 +66,10 @@ class Supplier extends \App\Entities\Supplier implements \Doctrine\ORM\Proxy\Pro
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return ['__isInitialized__', '' . "\0" . 'App\\Entities\\Supplier' . "\0" . 'id', '' . "\0" . 'App\\Entities\\Supplier' . "\0" . 'nif', '' . "\0" . 'App\\Entities\\Supplier' . "\0" . 'zip', '' . "\0" . 'App\\Entities\\Supplier' . "\0" . 'city', '' . "\0" . 'App\\Entities\\Supplier' . "\0" . 'address', '' . "\0" . 'App\\Entities\\Supplier' . "\0" . 'name', '' . "\0" . 'App\\Entities\\Supplier' . "\0" . 'acceptable', '' . "\0" . 'App\\Entities\\Supplier' . "\0" . 'recommendable', '' . "\0" . 'App\\Entities\\Supplier' . "\0" . 'contacts', '' . "\0" . 'App\\Entities\\Supplier' . "\0" . 'products', '' . "\0" . 'App\\Entities\\Supplier' . "\0" . 'created', '' . "\0" . 'App\\Entities\\Supplier' . "\0" . 'updated'];
+            return ['__isInitialized__', '' . "\0" . 'App\\Entities\\Supplier' . "\0" . 'id', '' . "\0" . 'App\\Entities\\Supplier' . "\0" . 'nif', '' . "\0" . 'App\\Entities\\Supplier' . "\0" . 'zip', '' . "\0" . 'App\\Entities\\Supplier' . "\0" . 'city', '' . "\0" . 'App\\Entities\\Supplier' . "\0" . 'address', '' . "\0" . 'App\\Entities\\Supplier' . "\0" . 'name', '' . "\0" . 'App\\Entities\\Supplier' . "\0" . 'acceptable', '' . "\0" . 'App\\Entities\\Supplier' . "\0" . 'recommendable', '' . "\0" . 'App\\Entities\\Supplier' . "\0" . 'contacts', '' . "\0" . 'App\\Entities\\Supplier' . "\0" . 'incidences', '' . "\0" . 'App\\Entities\\Supplier' . "\0" . 'invoiced', '' . "\0" . 'App\\Entities\\Supplier' . "\0" . 'products', '' . "\0" . 'App\\Entities\\Supplier' . "\0" . 'created', '' . "\0" . 'App\\Entities\\Supplier' . "\0" . 'updated'];
         }
 
-        return ['__isInitialized__', '' . "\0" . 'App\\Entities\\Supplier' . "\0" . 'id', '' . "\0" . 'App\\Entities\\Supplier' . "\0" . 'nif', '' . "\0" . 'App\\Entities\\Supplier' . "\0" . 'zip', '' . "\0" . 'App\\Entities\\Supplier' . "\0" . 'city', '' . "\0" . 'App\\Entities\\Supplier' . "\0" . 'address', '' . "\0" . 'App\\Entities\\Supplier' . "\0" . 'name', '' . "\0" . 'App\\Entities\\Supplier' . "\0" . 'acceptable', '' . "\0" . 'App\\Entities\\Supplier' . "\0" . 'recommendable', '' . "\0" . 'App\\Entities\\Supplier' . "\0" . 'contacts', '' . "\0" . 'App\\Entities\\Supplier' . "\0" . 'products', '' . "\0" . 'App\\Entities\\Supplier' . "\0" . 'created', '' . "\0" . 'App\\Entities\\Supplier' . "\0" . 'updated'];
+        return ['__isInitialized__', '' . "\0" . 'App\\Entities\\Supplier' . "\0" . 'id', '' . "\0" . 'App\\Entities\\Supplier' . "\0" . 'nif', '' . "\0" . 'App\\Entities\\Supplier' . "\0" . 'zip', '' . "\0" . 'App\\Entities\\Supplier' . "\0" . 'city', '' . "\0" . 'App\\Entities\\Supplier' . "\0" . 'address', '' . "\0" . 'App\\Entities\\Supplier' . "\0" . 'name', '' . "\0" . 'App\\Entities\\Supplier' . "\0" . 'acceptable', '' . "\0" . 'App\\Entities\\Supplier' . "\0" . 'recommendable', '' . "\0" . 'App\\Entities\\Supplier' . "\0" . 'contacts', '' . "\0" . 'App\\Entities\\Supplier' . "\0" . 'incidences', '' . "\0" . 'App\\Entities\\Supplier' . "\0" . 'invoiced', '' . "\0" . 'App\\Entities\\Supplier' . "\0" . 'products', '' . "\0" . 'App\\Entities\\Supplier' . "\0" . 'created', '' . "\0" . 'App\\Entities\\Supplier' . "\0" . 'updated'];
     }
 
     /**
@@ -376,6 +376,50 @@ class Supplier extends \App\Entities\Supplier implements \Doctrine\ORM\Proxy\Pro
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'getContacts', []);
 
         return parent::getContacts();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getProducts()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getProducts', []);
+
+        return parent::getProducts();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getIncidences()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getIncidences', []);
+
+        return parent::getIncidences();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getInvoiced(int $year = NULL)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getInvoiced', [$year]);
+
+        return parent::getInvoiced($year);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function addInvoiced(\App\Entities\Supplier\Invoiced $invoiced)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'addInvoiced', [$invoiced]);
+
+        return parent::addInvoiced($invoiced);
     }
 
     /**

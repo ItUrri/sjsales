@@ -7,6 +7,7 @@ use Doctrine\ORM\EntityManagerInterface;
 
 use App\Entities\Movement,
     App\Entities\Order,
+    App\Events\MovementEvent,
     App\Http\Requests\MovementRequest;
 
 class MovementController extends Controller
@@ -72,25 +73,18 @@ class MovementController extends Controller
                              ->withInput()
                              ->withErrors(["order" => "Order {$matches[0]} not found"]);
         }
-
         $movement = new Movement;
         $movement->setCredit($data['credit'])
+                 ->setInvoice($data['invoice'])
                  ->setDetail($data['detail'])
-                 ;
+                 ->setOrder($order);
 
-        $order->addMovement($movement)
-              ->setStatus(Order::STATUS_PAID)
-              ->setCredit($data['credit'])
-              ->setInvoice($data['invoice'])
-              ;
+        MovementEvent::dispatch($movement);
 
-        $order->getArea()
-              ->decreaseCompromisedCredit($order->getEstimatedCredit())
-              ->decreaseCredit($order->getCredit());
-
+        $this->em->persist($movement);
         $this->em->flush();
 
-        return redirect()->back()
+        return redirect()->route('movements.index')
                          ->with('success', 'Successfully created');
     }
 
