@@ -38,15 +38,15 @@
         <tr>
             <th scope="col">ID</th>
             <th scope="col"></th>
-            <th scope="col">Name</th>
-            <th scope="col">Type</th>
-            <th scope="col">Departments</th>
-            <th scope="col">Created</th>
-            <th scope="col">Data</th>
-            <th scope="col">Data</th>
-            <th scope="col">Data</th>
-            <th scope="col">Order</th>
-            <th scope="col">Actions</th>
+            <th scope="col">{{ __('Name') }}</th>
+            <th scope="col">{{ __('Type') }}</th>
+            <th scope="col">{{ __('Departments') }}</th>
+            <th scope="col">{{ __('Created') }}</th>
+            <th scope="col">{{ __('Data') }}</th>
+            <th scope="col">{{ __('Data') }}</th>
+            <th scope="col">{{ __('Data') }}</th>
+            <th scope="col">{{ __('Order') }}</th>
+            <th scope="col">{{ __('Actions') }}</th>
         </tr>
         @foreach ($areas as $i => $entity)
         <tr>
@@ -68,9 +68,9 @@
                 'method' => 'delete',
             ]) }}
                 <div class="btn-group btn-group-sm float-end" role="group">
-                    <a href="{{ route('areas.show', ['area' => $entity->getId()]) }}" class="btn btn-primary">view</a>
-                    <a href="{{ route('areas.edit', ['area' => $entity->getId()]) }}" class="btn btn-primary"><i class="fa fa-pencil"></i> edit</a>
-                    {{ Form::submit('delete', ['class' => 'btn btn-primary']) }}
+                    <a href="{{ route('areas.show', ['area' => $entity->getId()]) }}" class="btn btn-primary">{{ __('view') }}</a>
+                    <a href="{{ route('areas.edit', ['area' => $entity->getId()]) }}" class="btn btn-primary"><i class="fa fa-pencil"></i> {{__('edit') }}</a>
+                    {{ Form::submit(__('delete'), ['class' => 'btn btn-primary']) }}
                 </div>
             {{ Form::close() }}
             </td>

@@ -1,7 +1,7 @@
 @extends('opanel_layout')
 
 @section('content')
-<h3>Orders</h3>
+<h3>{{ __('Orders') }}</h3>
 <form class="form-inline my-2 row" method="get" action="{{ route('areas.index') }}">
     <div class="col col pe-0">
         <input type="text" name="name" placeholder="" class="form-control form-control-sm">

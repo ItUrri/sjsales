@@ -20,6 +20,11 @@ Route::get('auth', function () {return view('auth.index');})->name('auth');
 Route::get('logout', [\App\Http\Controllers\AuthController::class, 'logout'])->name('logout');
 Route::post('login', [\App\Http\Controllers\AuthController::class, 'login'])->name('login');
 Route::post('register', [\App\Http\Controllers\AuthController::class, 'register'])->name('register');
+Route::get('language/{locale}', function ($locale) {
+    app()->setLocale($locale);
+    session()->put('locale', $locale);
+    return redirect()->back();
+});
 
 /*
  *

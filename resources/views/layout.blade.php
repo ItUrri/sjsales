@@ -70,6 +70,13 @@
         <button class="btn btn-sm btn-outline-success" type="submit">Search</button>
       </form>
     -->
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        @foreach(config('app.available_locales') as $localeName => $availableLocale)
+        <li class="nav-item">
+          <a class="nav-link {{ ($availableLocale == app()->getLocale()) ? 'disabled' : '' }}" aria-current="page" href="language/{{ $availableLocale }}">{{ $localeName }}</a>
+        </li>
+        @endforeach
+      </ul>
     </div>
   </div>
 </nav>

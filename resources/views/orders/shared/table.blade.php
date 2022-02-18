@@ -1,16 +1,16 @@
 <div class="table-responsive table-responsive-sm mt-2">
     <table class="table table-sm table-bordered">
         <tr>
-            <th scope="col">Order nº</th>
-            <th scope="col">Area</th>
-            <th scope="col">Type</th>
-            <th scope="col">Products</th>
-            <th scope="col">Estimated</th>
-            <th scope="col">Status</th>
-            <th scope="col">Credit</th>
-            <th scope="col">Detail</th>
-            <th scope="col">Date</th>
-            <th scope="col">Actions</th>
+            <th scope="col">{{ __('Order') }} nº</th>
+            <th scope="col">{{ __('Area') }}</th>
+            <th scope="col">{{ __('Type') }}</th>
+            <th scope="col">{{ __('Products') }}</th>
+            <th scope="col">{{ __('Estimated') }}</th>
+            <th scope="col">{{ __('Status') }}</th>
+            <th scope="col">{{ __('Credit') }}</th>
+            <th scope="col">{{ __('Detail') }}</th>
+            <th scope="col">{{ __('Date') }}</th>
+            <th scope="col">{{ __('Actions') }}</th>
         </tr>
         @foreach ($collection as $i => $order)
         <tr>
@@ -30,11 +30,11 @@
             ]) }}
                 <div class="btn-group btn-group-sm float-end" role="group">
                     <a href="{{ route('orders.show', ['order' => $order->getId()]) }}" class="btn btn-outline-primary">view</a>
-                    <a href="" class="btn btn-outline-primary"><i class="fa fa-pencil"></i> edit</a>
+                    <a href="" class="btn btn-outline-primary">{{ __('edit') }}</a>
                     @if ($order->isStatus(\App\Entities\Order::STATUS_PAID))
-                    <a href="" class="btn btn-outline-primary">receive</a>
+                    <a href="" class="btn btn-outline-primary">{{ __('receive') }}</a>
                     @endif
-                    {{ Form::submit('delete', ['class' => 'btn btn-outline-primary' . ($order->isStatus(\App\Entities\Order::STATUS_PAID)?' disabled':'')]) }}
+                    {{ Form::submit(__('delete'), ['class' => 'btn btn-outline-primary' . ($order->isStatus(\App\Entities\Order::STATUS_PAID)?' disabled':'')]) }}
                 </div>
             {{ Form::close() }}
             </td>
