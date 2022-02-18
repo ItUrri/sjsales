@@ -39,19 +39,19 @@
           <a class="nav-link {{request()->is('') ? 'active' : ''}}" aria-current="page" href="/">{{ Auth::user()->getEmail() }}</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link {{request()->is('areas*', 'departments*') ? 'active' : ''}}" href="{{ route('areas.index') }}">Settings</a>
+          <a class="nav-link {{request()->is('areas*', 'departments*') ? 'active' : ''}}" href="{{ route('areas.index') }}">{{ __('Settings') }}</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link {{request()->is('orders*') ? 'active' : ''}}" href="{{ route('orders.index') }}">Orders</a>
+          <a class="nav-link {{request()->is('orders*') ? 'active' : ''}}" href="{{ route('orders.index') }}">{{ __('Orders') }}</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link {{request()->is('movements*') ? 'active' : ''}}" href="{{ route('movements.index') }}">Movements</a>
+          <a class="nav-link {{request()->is('movements*') ? 'active' : ''}}" href="{{ route('movements.index') }}">{{ __('Movements') }}</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link {{request()->is('suppliers*') ? 'active' : ''}}" href="{{ route('suppliers.index') }}">Suppliers</a>
+          <a class="nav-link {{request()->is('suppliers*') ? 'active' : ''}}" href="{{ route('suppliers.index') }}">{{ __('Suppliers') }}</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link {{request()->is('auth*') ? 'active' : ''}}" href="{{ route('logout') }}">logout</a>
+          <a class="nav-link {{request()->is('auth*') ? 'active' : ''}}" href="{{ route('logout') }}">{{ __('Logout') }}</a>
         </li>
         
         </ul>

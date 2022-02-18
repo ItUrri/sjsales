@@ -3,7 +3,7 @@
 @section('sidebar')
     <ul class="my-4">
         <li>
-        <a class="{{request()->is('orders*') ? 'link-secondary' : 'link-primary'}}" href="{{ route('orders.index') }}">Orders</a>
+        <a class="{{request()->is('orders*') ? 'link-secondary' : 'link-primary'}}" href="{{ route('orders.index') }}">{{ __('Orders') }}</a>
         </li>
     </ul>
 

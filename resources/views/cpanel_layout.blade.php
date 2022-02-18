@@ -9,10 +9,10 @@
     -->
     <ul class="my-4">
         <li>
-        <a class="{{request()->is('areas*') ? 'link-secondary' : 'link-primary'}}" href="{{ route('areas.index') }}">Areas</a>
+        <a class="{{request()->is('areas*') ? 'link-secondary' : 'link-primary'}}" href="{{ route('areas.index') }}">{{ trans_choice('Area|Areas', 2) }}</a>
         </li>
         <li>
-        <a class="{{request()->is('departments*') ? 'link-secondary' : 'link-primary'}}" href="{{ route('departments.index') }}">Departments</a>
+        <a class="{{request()->is('departments*') ? 'link-secondary' : 'link-primary'}}" href="{{ route('departments.index') }}">{{ trans_choice('Department|Departments', 2) }}</a>
         </li>
     </ul>
 @endsection
