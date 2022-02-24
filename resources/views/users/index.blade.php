@@ -1,0 +1,34 @@
+@extends('new_layout')
+
+@section('content')
+<div class="table-responsive">
+<table class="table table-bordered table-hover table-sm align-middle">
+    <thead>
+    <tr>
+        <th scope="col">{{ __('Email') }}</th>
+        <th scope="col">{{ __('Areas') }}</th>
+        <th scope="col">{{ __('Created') }}</th>
+        <th scope="col">{{ __('Last login') }}</th>
+        <th scope="col">{{ __('Actions') }}</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach ($collection as $user)
+    <tr>
+        <td>{{ $user->getEmail() }}</td>
+        <td>{{ implode(", ", $user->getAreas()->map(function ($e) { return "{$e->getName()} ({$e->getType()})"; })->toArray()) }}</td>
+        <td>{{ $user->getCreated()->format("d/m/Y H:i") }}</td>
+        <td>{{ $user->getLastLogin()->format("d/m/Y H:i") }}</td>
+        <td class="m-0">
+            <div class="btn-group btn-group-sm">
+            <a href="#" class="btn btn-outline-secondary"><span data-feather="eye"></span></a>
+            <a href="#" class="btn btn-outline-secondary"><span data-feather="edit-2"></span></a>
+            <a href="#" class="btn btn-outline-secondary"><span data-feather="trash"></span></a>
+            </div>
+        </td>
+    </tr> 
+    @endforeach
+    </table>
+</div>
+@endsection
+

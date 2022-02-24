@@ -37,6 +37,7 @@ Route::get('language/{locale}', function ($locale) {
  *  DELETE      /photos/{photo}         destroy     photos.destroy
  */
 Route::resources([
+    'users'       => Controllers\UserController::class,
     'areas'       => Controllers\AreaController::class,
     'areas.orders' => Controllers\Area\OrderController::class,
     'areas.movements' => Controllers\Area\MovementController::class,
