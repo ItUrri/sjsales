@@ -7,10 +7,11 @@
     "require": {
         "php": "^7.3|^8.0",
         "doctrine/annotations": "^1.13",
-        "doctrine/inflector": "^2.0",
+        "doctrine/inflector": "^1.4|^2.0",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "kris/laravel-form-builder": "^1.40",
+        "laravel-doctrine/acl": "^1.6",
         "laravel-doctrine/orm": "^1.7",
         "laravel/framework": "^8.75",
         "laravel/sanctum": "^2.11",
@@ -60,7 +61,10 @@
     "config": {
         "optimize-autoloader": true,
         "preferred-install": "dist",
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "composer/package-versions-deprecated": true
+        }
     },
     "minimum-stability": "dev",
     "prefer-stable": true
