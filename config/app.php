@@ -191,6 +191,7 @@ return [
         //Custom
         Collective\Html\HtmlServiceProvider::class,
         Kris\LaravelFormBuilder\FormBuilderServiceProvider::class,
+        LaravelDoctrine\ACL\AclServiceProvider::class,
     ],
 
     /*

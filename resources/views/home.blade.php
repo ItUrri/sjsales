@@ -1,5 +1,5 @@
 @extends('new_layout')
-
+@section('title'){{ __('Dashboard') }}@endsection
 @section('content')
       <div class="table-responsive">
         <table class="table table-striped table-sm">

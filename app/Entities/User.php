@@ -4,6 +4,9 @@ namespace App\Entities;
 
 use Doctrine\ORM\Mapping as ORM;
 use \Illuminate\Contracts\Auth\Authenticatable;
+use LaravelDoctrine\ACL\Roles\HasRoles;
+use LaravelDoctrine\ACL\Mappings as ACL;
+use LaravelDoctrine\ACL\Contracts\HasRoles as HasRolesContract;
 
 /**
  * User 
@@ -12,8 +15,10 @@ use \Illuminate\Contracts\Auth\Authenticatable;
  * @ORM\Entity
  * @ORM\HasLifecycleCallbacks
  */
-class User implements Authenticatable
+class User implements Authenticatable, HasRolesContract
 {
+    use HasRoles;
+
     /**
      * @var int
      *
@@ -71,6 +76,11 @@ class User implements Authenticatable
      * @ORM\Column(name="login", type="datetime", nullable=true)
      */
     private $lastLogin;
+
+    /**
+     * @ACL\HasRoles()
+     */
+    protected $roles;
 
     /**
      * Constructor
@@ -268,6 +278,24 @@ class User implements Authenticatable
     public function getUpdated()
     {
         return $this->updated;
+    }
+
+    /**
+     * @param Role $role
+     * @return User
+     */
+    public function addRole(Role $role)
+    {
+        $this->getRoles()->add($role);
+        return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getRoles()
+    {
+        return $this->roles;
     }
 
     /**
