@@ -45,6 +45,8 @@ class DepartmentController extends Controller
     public function create()
     {
         return view('departments.form', [
+            'route' => route('departments.store'),
+            'method' => 'POST',
             'entity' => new Department,
         ]); 
     }
@@ -74,14 +76,10 @@ class DepartmentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Department $department)
     {
-        if (null === ($entity = $this->em->find(Department::class, $id))) {
-            abort(404);
-        }
-
         return view('departments.show', [
-            'department' => $entity,
+            'department' => $department,
         ]); 
     }
 
@@ -91,14 +89,12 @@ class DepartmentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Department $department)
     {
-        if (null === ($entity = $this->em->find(Department::class, $id))) {
-            abort(404);
-        }
-
         return view('departments.form', [
-            'entity' => $entity,
+            'route' => route('departments.update', ['department' => $department->getId()]),
+            'method' => 'PUT',
+            'entity' => $department,
         ]); 
     }
 
@@ -109,9 +105,13 @@ class DepartmentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(DepartmentPostRequest $request, Department $department)
     {
-        //
+        $data = $request->validated();
+        $department->setName($data['name']);
+        $this->em->flush();
+        return redirect()->route('departments.index')
+                         ->with('success', 'Successfully updated');
     }
 
     /**
@@ -120,13 +120,9 @@ class DepartmentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Department $department)
     {
-        if (null === ($entity = $this->em->find(Department::class, $id))) {
-            die('not found');
-        }
-
-        $this->em->remove($entity);
+        $this->em->remove($department);
         $this->em->flush();
 
         return redirect()->back()->with('success', 'Successfully removed');

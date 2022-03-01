@@ -1,24 +1,29 @@
-@extends('cpanel_layout')
+@extends('new_layout')
+@section('title')
+@if ($entity->getId()) 
+    {{ __('Edit area :name', ['name' => $entity->getName()]) }} 
+@else 
+    {{ __('New area') }} 
+@endif
+@endsection
 
 @section('content')
-<h3>@if ($entity->getId()) Edit area {{ $entity->getName() }} @else New area @endif</h3>
-   
-<form action="{{ $route }}" method="POST" class="row">
+<form action="{{ $route }}" method="POST" class="row" novalidate>
     @csrf
     {{ method_field($method) }}
 
     <div class="col-md-8 mb-3">
         {{ Form::label('name', 'Name', ['class' => 'form-label']) }}
-        {{ Form::text('name', $entity->getName(), ['class' => 'form-control']) }}
+        {{ Form::text('name', $entity->getName(), ['class' => 'form-control' . ($errors->has('name') ? ' is-invalid':'')]) }}
         @if ($errors->has('name'))
-           <div>{!! $errors->first('name') !!}</div>
+           <div class="invalid-feedback">{!! $errors->first('name') !!}</div>
         @endif
     </div>
     <div class="col-md-4 mb-3">
         {{ Form::label('acronym', 'Acronym', ['class' => 'form-label']) }}
-        {{ Form::text('acronym', $entity->getAcronym(), ['class' => 'form-control']) }}
+        {{ Form::text('acronym', $entity->getAcronym(), ['class' => 'form-control' . ($errors->has('acronym') ? ' is-invalid':'')]) }}
         @if ($errors->has('acronym'))
-           <div>{!! $errors->first('acronym') !!}</div>
+           <div class="invalid-feedback">{!! $errors->first('acronym') !!}</div>
         @endif
     </div>
 
@@ -29,28 +34,28 @@
             \App\Entities\Area::TYPE_EQUIPAMIENTO => \App\Entities\Area::typeName(\App\Entities\Area::TYPE_EQUIPAMIENTO),
             \App\Entities\Area::TYPE_FUNGIBLE => \App\Entities\Area::typeName(\App\Entities\Area::TYPE_FUNGIBLE),
             \App\Entities\Area::TYPE_LANBIDE => \App\Entities\Area::typeName(\App\Entities\Area::TYPE_LANBIDE),
-        ], $entity->getType(), ['class'=>'form-select'], [0 => ['disabled' => true]]) }}
+        ], $entity->getType(), ['class'=>'form-select' . ($errors->has('type') ? ' is-invalid':'')], [0 => ['disabled' => true]]) }}
         @if ($errors->has('type'))
-           <div>{!! $errors->first('type') !!}</div>
+           <div class="invalid-feedback">{!! $errors->first('type') !!}</div>
         @endif
     </div>
 
     <div class="col-md-6 mb-3">
         {{ Form::label('lcode', 'Lanbide code', ['class' => 'form-label']) }}
-        {{ Form::text('lcode', $entity->getLCode(), ['class' => 'form-control', 'disabled' => $entity->getType() !== \App\Entities\Area::TYPE_LANBIDE ]) }}
+        {{ Form::text('lcode', $entity->getLCode(), ['class' => 'form-control' . ($errors->has('lcode') ? ' is-invalid':''), 'disabled' => $entity->getType() !== \App\Entities\Area::TYPE_LANBIDE ]) }}
         @if ($errors->has('lcode'))
-           <div>{!! $errors->first('lcode') !!}</div>
+           <div class="invalid-feedback">{!! $errors->first('lcode') !!}</div>
         @endif
     </div>
 
     <div class="col-md-6 mb-3">
         {{ Form::label('credit', 'Credit', ['class' => 'form-label']) }}
         <div class="input-group">
-        {{ Form::number('credit', $entity->getCredit(), ['class' => 'form-control', 'step' => '0.01', 'min' => 0]) }}
+        {{ Form::number('credit', $entity->getCredit(), ['class' => 'form-control' . ($errors->has('credit') ? ' is-invalid':''), 'step' => '0.01', 'min' => 0]) }}
         <span class="input-group-text">€</span>
         </div>
         @if ($errors->has('credit'))
-           <div>{!! $errors->first('credit') !!}</div>
+           <div class="invalid-feedback">{!! $errors->first('credit') !!}</div>
         @endif
     </div>
 
@@ -95,8 +100,10 @@
     </fieldset>
 
     <div>
-        {{ Form::submit('Save', ['class' => 'btn btn-success btn-sm float-end']) }}
-        <a href="{{ route('areas.index') }}" class="btn btn-sm float-end">Cancel</a>
+        {{ Form::submit('Save', ['class' => 'btn btn-primary btn-sm float-end']) }}
+        <a href="{{ route('areas.index') }}" class="btn btn-sm float-end">
+            Cancel
+        </a>
     </div>
 
 </form>

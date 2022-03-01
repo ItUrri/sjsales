@@ -8,7 +8,7 @@
 @section('content')
 
 <div class="table-responsive">
-<table class="table table-bordered table-hover table-sm align-middle">
+<table class="table table-hover table-sm align-middle">
     <thead>
     <tr>
         <th scope="col">{{ __('Name') }}</th>

@@ -1,14 +1,17 @@
-@extends('cpanel_layout')
- 
+@extends('new_layout')
+@section('title')
+@if ($entity->getId()) 
+    {{ __('Edit department :name', ['name' => $entity->getName()]) }} 
+@else 
+    {{ __('New department') }} 
+@endif
+@endsection
+
 @section('content')
-<h3>Edit department {{$entity->getName()}}</h3>
    
-    {{ Form::open([
-        'route' => 'departments.store', 
-        'method' => 'POST', 
-        'class' => '',
-        'novalidate' => true,
-    ]) }}
+<form action="{{ $route }}" method="POST" class="row" novalidate>
+    @csrf
+    {{ method_field($method) }}
 
     <div class="mb-3 has-validations">
         {{ Form::label('name', 'Name', ['class' => 'form-label']) }}
@@ -18,9 +21,10 @@
         @endif
     </div>
 
-    {{ Form::submit('Save', ['class' => 'btn btn-sm btn-success float-end']) }}
-    <a href="{{route('departments.index')}}" class="btn btn-sm">Cancel</a>
+    <div>
+        {{ Form::submit('Save', ['class' => 'btn btn-primary btn-sm float-end']) }}
+        <a href="{{route('departments.index')}}" class="btn btn-sm float-end">Cancel</a>
+    </div>
 
-    {{ Form::close() }}
-   
+</form> 
 @endsection
