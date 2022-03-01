@@ -1,50 +1,46 @@
-@extends('cpanel_layout')
-
+@extends('new_layout')
+@section('title'){{ __('Departments') }}@endsection
+@section('btn-toolbar')
+    <a href="{{ route('departments.create') }}" class="btn btn-sm btn-outline-secondary">
+    <span data-feather="plus"></span> New
+    </a>
+@endsection
 @section('content')
-<h3>Departments</h3>
-<a href="{{ route('departments.create') }}" class="btn btn-sm btn-outline-primary">New</a>
-<div class="table-responsive table-responsive-sm">
-    <table class="table bordered caption-top">
-        <caption>List of departments</caption>
-        <thead class="table-light border-0">
-        <tr>
-            <th scope="col">Name</th>
-            <th scope="col">Created</th>
-            <th scope="col">Data</th>
-            <th scope="col">Data</th>
-            <th scope="col">Data</th>
-            <th scope="col">Data</th>
-            <th scope="col">Data</th>
-            <th scope="col">Data</th>
-            <th scope="col">Actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        @foreach ($departments as $i => $entity)
-        <tr>
-            <td>{{ $entity->getName() }}</td>
-            <td>{{ $entity->getCreated()->format("d/m/Y H:i") }}</td>
-            <td>...</td>
-            <td>...</td>
-            <td>...</td>
-            <td>...</td>
-            <td>...</td>
-            <td>...</td>
-            <td>
-            {{ Form::open([
-                'route' => ['departments.destroy', $entity->getId()], 
-                'method' => 'delete',
-            ]) }}
-                <div class="btn-group btn-group-sm float-end" role="group">
-                    <a href="{{ route('departments.show', ['department' => $entity->getId()]) }}" class="btn btn-primary">view</a>
-                    <a href="{{ route('departments.edit', ['department' => $entity->getId()]) }}" class="btn btn-primary"><i class="fa fa-pencil"></i> edit</a>
-                    {{ Form::submit('delete', ['class' => 'btn btn-primary']) }}
-                </div>
-            {{ Form::close() }}
-            </td>
-        </tr>
-        @endforeach
-        </tbody>
-    </table> 
-</div>
+
+<div class="table-responsive">
+<table class="table table-bordered table-hover table-sm align-middle">
+    <thead>
+    <tr>
+        <th scope="col">{{ __('Name') }}</th>
+        <th scope="col">{{ __('Areas') }}</th>
+        <th scope="col">{{ __('Created') }}</th>
+        <th scope="col">{{ __('Actions') }}</th>
+    </tr>
+    </thead>
+    <tbody> 
+    @foreach ($collection as $entity)
+    <tr>
+        <td>{{ $entity->getName() }}</td>
+        <td>{{ implode(", ", $entity->getAreas()->map(function ($e) { return "{$e->getName()} ({$e->getType()})"; })->toArray()) }}</td>
+        <td>{{ $entity->getCreated()->format("d/m/Y H:i") }}</td>
+        <td>
+        {{ Form::open([
+            'route' => ['departments.destroy', $entity->getId()], 
+            'method' => 'delete',
+        ]) }}
+            <div class="btn-group btn-group-sm" role="group">
+                <a href="{{ route('departments.show', ['department' => $entity->getId()]) }}" class="btn btn-outline-secondary">
+                    <span data-feather="eye"></span>
+                </a>
+                <a href="{{ route('departments.edit', ['department' => $entity->getId()]) }}" class="btn btn-outline-secondary">
+                    <span data-feather="edit-2"></span>
+                </a>
+                {{ Form::button('<span data-feather="trash"></span>', ['class' => 'btn btn-outline-secondary', 'type' => 'submit']) }}
+            </div>
+        {{ Form::close() }}
+        </td>
+    </tr>
+    @endforeach
+    </tbody> 
+</table>
 @endsection

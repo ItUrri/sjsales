@@ -1,5 +1,15 @@
 @extends('new_layout')
 @section('title'){{ __('Dashboard') }}@endsection
+@section('btn-toolbar')
+    <div class="btn-group me-2">
+      <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
+      <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
+    </div>
+    <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
+      <span data-feather="calendar"></span>
+      This week
+    </button>
+@endsection
 @section('content')
       <div class="table-responsive">
         <table class="table table-striped table-sm">

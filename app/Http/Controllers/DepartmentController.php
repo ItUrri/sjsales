@@ -33,7 +33,7 @@ class DepartmentController extends Controller
         $departments = $this->em->getRepository(Department::class)->findAll();
 
         return view('departments.index', [
-            'departments' => $departments,
+            'collection' => $departments,
         ]); 
     }
 

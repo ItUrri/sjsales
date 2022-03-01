@@ -27,7 +27,7 @@
 <body>
 
 <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
-  <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#">
+  <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="/">
     <img src="/img/logo/logo.png" alt="" class="gb_ka">
   </a>
   <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
@@ -47,7 +47,8 @@
     <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
       <div class="position-sticky pt-3">
         <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-          <span>{{ __('Dashboard') }}</span>
+          <!--<span>{{ __('Dashboard') }}</span>-->
+          <span>{{ Auth::user()->getEmail() }}</span>
         </h6>
         <ul class="nav flex-column">
           <!--
@@ -144,13 +145,13 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{{ route('departments.index') }}">
+            <a class="nav-link {{request()->is('departments*') ? 'active' : ''}}" href="{{ route('departments.index') }}">
               <span data-feather="hexagon"></span>
               {{ __('Departments') }}
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{{ route('areas.index') }}">
+            <a class="nav-link {{request()->is('areas*') ? 'active' : ''}}" href="{{ route('areas.index') }}">
               <span data-feather="globe"></span>
               {{ __('Areas') }}
             </a>
@@ -210,14 +211,7 @@
      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h2">@yield('title', 'SJ')</h2>
         <div class="btn-toolbar mb-2 mb-md-0">
-          <div class="btn-group me-2">
-            <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
-            <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
-          </div>
-          <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
-            <span data-feather="calendar"></span>
-            This week
-          </button>
+          @yield('btn-toolbar')
         </div>
       </div>
       @yield('content')

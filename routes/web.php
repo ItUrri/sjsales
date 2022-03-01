@@ -15,7 +15,6 @@ use App\Http\Controllers;
 |
 */
 
-Route::get('/', function () {return view('home');});
 Route::get('auth', function () {return view('auth.index');})->name('auth');
 Route::get('logout', [\App\Http\Controllers\AuthController::class, 'logout'])->name('logout');
 Route::post('login', [\App\Http\Controllers\AuthController::class, 'login'])->name('login');
@@ -25,6 +24,10 @@ Route::get('language/{locale}', function ($locale) {
     session()->put('locale', $locale);
     return redirect()->back();
 });
+Route::get('/', function () {return view('home');})
+    ->name('home')
+    ->middleware('auth')
+    ;
 
 /*
  *
