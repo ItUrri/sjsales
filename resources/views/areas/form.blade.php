@@ -107,12 +107,13 @@
     </div>
 
 </form>
-  
 @endsection
+
 @section('scripts')
 <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
 <script>
     $(document).ready(function() {
+        $('#lcode').attr('disabled', $('#type').val() != 'L');
         $('#type').change(function() {
             $('#lcode').val('').attr('disabled', $(this).val() != 'L');
         });
