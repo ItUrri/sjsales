@@ -68,8 +68,6 @@ class OrderController extends Controller
      */
     public function store(Area $area, OrderPostRequest $request)
     {
-        //dd($request->all());
-
         $last = $this->em->getRepository(Order::class)->findOneBy([
             'area' => $area,
         ], ['date' => 'DESC']);

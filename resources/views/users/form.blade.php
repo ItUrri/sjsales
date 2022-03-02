@@ -16,7 +16,7 @@
 
     <div class="col-md-12 mb-3">
         {{ Form::label('email', 'Email', ['class' => 'form-label']) }}
-        {{ Form::email('email', $entity->getEmail(), ['class' => 'form-control' . ($errors->has('email')? ' is-invalid':'')]) }}
+        {{ Form::email('email', old('email', $entity->getEmail()), ['class' => 'form-control form-control-sm' . ($errors->has('email')? ' is-invalid':'')]) }}
         @if ($errors->has('email'))
            <div class="invalid-feedback">{!! $errors->first('email') !!}</div>
         @endif

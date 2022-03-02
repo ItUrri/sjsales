@@ -1,7 +1,7 @@
-@extends('areas/header')
+@extends('new_layout')
+@section('title'){{ __('New order') }}@endsection
 
-@section('body')
-<h3>New order</h3>
+@section('content')
 
     {{ Form::open([
         'route' => ['areas.orders.store', ['area' => $entity->getId()]], 
@@ -11,10 +11,10 @@
        ])
     }}
 
-    <div class="col-md-6 mb-3 border">
-        {{ Form::label('credit', 'Estimated credit', ['class' => 'form-label']) }}
+    <div class="col-md-6 mb-3">
+        {{ Form::label('credit', "Estimated credit (Available: {$entity->getAvailableCredit()}€)", ['class' => 'form-label']) }}
         <div class="input-group input-group-sm mb-3">
-            {{ Form::number('credit', null, ['step' => '0.01', 'min' => 0, 'class' => 'form-control' . ($errors->has('credit') ? ' is-invalid':'') ]) }}
+            {{ Form::number('credit', old('credit', 0), ['step' => '0.01', 'min' => 0, 'class' => 'form-control' . ($errors->has('credit') ? ' is-invalid':'') ]) }}
             <span class="input-group-text">€</span>
             @if ($errors->has('credit'))
                <div class="invalid-feedback">{!! $errors->first('credit') !!}</div>
@@ -22,35 +22,35 @@
         </div>
 
         {{ Form::label('custom', 'Intercalate', ['class' => 'form-label']) }}
-        {{ Form::checkbox("custom", null, false, ['class' => 'form-check-input', 'onchange' => 'displayCustom(this)']) }}         
+        {{ Form::checkbox("custom", true, old('custom'), ['class' => 'form-check-input', 'onchange' => 'displayCustom(this)']) }}         
         <div id="custom-fields" class="row d-none">
             <div class="col-md-12 text-center small" id="sequence-alert"></div>
-            <div class="col-md-4 border">
+            <div class="col-md-4">
                 {{ Form::label('previous', 'Select previous', ['class' => 'form-label']) }}
-                {{ Form::select('previous', array_merge([null => '--Select one--'], $entity->getOrders()->map(function($e) {return $e->getSequence(); })->toArray()), null, ['class'=>'form-select form-select-sm', 'disabled' => true, 'onchange' => 'selectSequence(this)'], [null => ['disabled' => true]]) }}
+                {{ Form::select('previous', array_merge([null => '--Select one--'], $entity->getOrders()->map(function($e) {return $e->getSequence(); })->toArray()), old('previous', null), ['class'=>'form-select form-select-sm', 'disabled' => true, 'onchange' => 'selectSequence(this)'], [null => ['disabled' => true]]) }}
             </div>
-            <div class="col-md-4 border">
+            <div class="col-md-4">
                 {{ Form::label('sequence', 'Current sequence', ['class' => 'form-label']) }}
-                {{ Form::text("sequence", null, ['class' => 'form-control form-control-sm', 'disabled' => true]) }}
+                {{ Form::text("sequence", old('sequence', null), ['class' => 'form-control form-control-sm' . ($errors->has('sequence') ? ' is-invalid':''), 'disabled' => true]) }}
                 @if ($errors->has('sequence'))
-                   <div>{!! $errors->first('sequence') !!}</div>
+                   <div class="invalid-feedback">{!! $errors->first('sequence') !!}</div>
                 @endif
             </div>
-            <div class="col-md-4 border">
+            <div class="col-md-4">
                 {{ Form::label('date', 'Date', ['class' => 'form-label']) }}
-                {{ Form::date("date", now(), ['class' => 'form-control form-control-sm', 'disabled' => true]) }}
+                {{ Form::date("date", old('date', now()), ['class' => 'form-control form-control-sm', 'disabled' => true]) }}
             </div>
         </div>
     </div>
 
-    <div class="col-md-6 mb-3 border">
+    <div class="col-md-6 mb-3">
         {{ Form::label('estimated', 'Presupuesto', ['class' => 'form-label']) }}
         {{ Form::file("estimated", ['class' => 'form-control form-control-sm']) }}
         @if ($errors->has('estimated'))
            <div>{!! $errors->first('estimated') !!}</div>
         @endif
         {{ Form::label('detail', 'Detail', ['class' => 'form-label']) }}
-        {{ Form::textarea('detail', null, ['class' => 'form-control form-control-sm', 'rows' => 2]) }}
+        {{ Form::textarea('detail', old('detail', null), ['class' => 'form-control form-control-sm', 'rows' => 2]) }}
         @if ($errors->has('detail'))
            <div>{!! $errors->first('detail') !!}</div>
         @endif
@@ -64,7 +64,7 @@
         @endforeach
     </fieldset>
 
-    <div class="col-md-12 border">
+    <div class="col-md-12">
         <button type="button" class="btn btn-sm btn-default" onclick="addToCollection()">New product</button>
         {{ Form::submit('Save', ['class' => 'btn btn-sm btn-success float-end']) }}
         <a href="{{ route('areas.show', ['area' => $entity->getId()]) }}" class="btn btn-sm float-end">Cancel</a>

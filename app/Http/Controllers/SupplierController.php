@@ -48,7 +48,9 @@ class SupplierController extends Controller
         $entity = new Supplier;
         $entity->addContact(new Contact());
         $this->hydrateData($entity, $request->old());
-        return view('suppliers.create', [
+        return view('suppliers.form', [
+            'route'  => route('suppliers.store'),
+            'method' => 'POST',
             'entity' => $entity,
         ]); 
     }
@@ -90,7 +92,9 @@ class SupplierController extends Controller
      */
     public function edit(Supplier $supplier)
     {
-        return view('suppliers.edit', [
+        return view('suppliers.form', [
+            'route' => route('suppliers.update', ['supplier' => $supplier->getId()]),
+            'method' => 'PUT',
             'entity' => $supplier,
         ]); 
     }

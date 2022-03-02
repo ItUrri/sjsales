@@ -49,4 +49,21 @@ class OrderPostRequest extends FormRequest
             'products.*.credit'   => 'required|min:0',
         ];
     }
+
+    /**
+     * Configure the validator instance.
+     *
+     * @param  \Illuminate\Validation\Validator  $validator
+     * @return void
+     */
+    public function withValidator($validator)
+    {
+        $validator->after(function ($validator) {
+            $data = $validator->getData();
+            if (isset($data['custom']) && $data['custom']) {
+                if (!isset($data['sequence']) || is_null($data['sequence']))
+                $validator->errors()->add('sequence', 'Required field');
+            }
+        });
+    }
 }
