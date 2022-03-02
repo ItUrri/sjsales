@@ -15,7 +15,7 @@
 
     <div class="mb-3 has-validations">
         {{ Form::label('name', 'Name', ['class' => 'form-label']) }}
-        {{ Form::text('name', $entity->getName(), ['class' => 'form-control ' . ($errors->has('name') ? 'is-invalid' :'')]) }}
+        {{ Form::text('name', old('name', $entity->getName()), ['class' => 'form-control ' . ($errors->has('name') ? 'is-invalid' :'')]) }}
         @if ($errors->has('name'))
            <div class="invalid-feedback">{!! $errors->first('name') !!}</div>
         @endif

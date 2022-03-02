@@ -14,14 +14,14 @@
 
     <div class="col-md-8 mb-3">
         {{ Form::label('name', 'Name', ['class' => 'form-label']) }}
-        {{ Form::text('name', $entity->getName(), ['class' => 'form-control' . ($errors->has('name') ? ' is-invalid':'')]) }}
+        {{ Form::text('name', old('name', $entity->getName()), ['class' => 'form-control' . ($errors->has('name') ? ' is-invalid':'')]) }}
         @if ($errors->has('name'))
            <div class="invalid-feedback">{!! $errors->first('name') !!}</div>
         @endif
     </div>
     <div class="col-md-4 mb-3">
         {{ Form::label('acronym', 'Acronym', ['class' => 'form-label']) }}
-        {{ Form::text('acronym', $entity->getAcronym(), ['class' => 'form-control' . ($errors->has('acronym') ? ' is-invalid':'')]) }}
+        {{ Form::text('acronym', old('acronym', $entity->getAcronym()), ['class' => 'form-control' . ($errors->has('acronym') ? ' is-invalid':'')]) }}
         @if ($errors->has('acronym'))
            <div class="invalid-feedback">{!! $errors->first('acronym') !!}</div>
         @endif
@@ -34,7 +34,7 @@
             \App\Entities\Area::TYPE_EQUIPAMIENTO => \App\Entities\Area::typeName(\App\Entities\Area::TYPE_EQUIPAMIENTO),
             \App\Entities\Area::TYPE_FUNGIBLE => \App\Entities\Area::typeName(\App\Entities\Area::TYPE_FUNGIBLE),
             \App\Entities\Area::TYPE_LANBIDE => \App\Entities\Area::typeName(\App\Entities\Area::TYPE_LANBIDE),
-        ], $entity->getType(), ['class'=>'form-select' . ($errors->has('type') ? ' is-invalid':'')], [0 => ['disabled' => true]]) }}
+        ], old('type', $entity->getType()), ['class'=>'form-select' . ($errors->has('type') ? ' is-invalid':'')], [0 => ['disabled' => true]]) }}
         @if ($errors->has('type'))
            <div class="invalid-feedback">{!! $errors->first('type') !!}</div>
         @endif
@@ -42,7 +42,7 @@
 
     <div class="col-md-6 mb-3">
         {{ Form::label('lcode', 'Lanbide code', ['class' => 'form-label']) }}
-        {{ Form::text('lcode', $entity->getLCode(), ['class' => 'form-control' . ($errors->has('lcode') ? ' is-invalid':''), 'disabled' => $entity->getType() !== \App\Entities\Area::TYPE_LANBIDE ]) }}
+        {{ Form::text('lcode', old('lcode', $entity->getLCode()), ['class' => 'form-control' . ($errors->has('lcode') ? ' is-invalid':''), 'disabled' => $entity->getType() !== \App\Entities\Area::TYPE_LANBIDE ]) }}
         @if ($errors->has('lcode'))
            <div class="invalid-feedback">{!! $errors->first('lcode') !!}</div>
         @endif
@@ -51,7 +51,7 @@
     <div class="col-md-6 mb-3">
         {{ Form::label('credit', 'Credit', ['class' => 'form-label']) }}
         <div class="input-group">
-        {{ Form::number('credit', $entity->getCredit(), ['class' => 'form-control' . ($errors->has('credit') ? ' is-invalid':''), 'step' => '0.01', 'min' => 0]) }}
+        {{ Form::number('credit', old('credit', $entity->getCredit()), ['class' => 'form-control' . ($errors->has('credit') ? ' is-invalid':''), 'step' => '0.01', 'min' => 0]) }}
         <span class="input-group-text">€</span>
         </div>
         @if ($errors->has('credit'))
