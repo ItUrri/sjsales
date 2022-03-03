@@ -46,8 +46,11 @@ class SupplierController extends Controller
     public function create(Request $request)
     {
         $entity = new Supplier;
-        $entity->addContact(new Contact());
-        $this->hydrateData($entity, $request->old());
+
+        $data = $request->old() === [] ? 
+            ['contacts' => [0 => []]] : 
+            $request->old();
+        $this->hydrateData($entity, $data);
         return view('suppliers.form', [
             'route'  => route('suppliers.store'),
             'method' => 'POST',

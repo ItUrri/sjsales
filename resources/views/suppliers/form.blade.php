@@ -52,7 +52,7 @@
         @endif
     </div>
    
-
+    @if (!$entity->getId())
     <fieldset class="col-md-12 mb-3 collection-container" 
              data-prototype='@include("suppliers.shared.form_contact", ["index" => "__NAME__"])'>
         <legend>Contacts</legend>
@@ -60,11 +60,13 @@
             @include('suppliers.shared.form_contact', ['index' => $i])
         @endforeach
     </fieldset>
-
+    @endif
 
     <div class="col-md-12 mb-3">
         {{ Form::submit('Save', ['class' => 'btn btn-sm btn-primary float-end']) }}
-        <button type="button" class="add-to-collection btn btn-sm btn-outline-primary float-end">New contact</button>
+        @if (!$entity->getId())
+            <button type="button" class="add-to-collection btn btn-sm btn-outline-primary float-end">New contact</button>
+        @endif
         <a href="{{ route('suppliers.index') }}" class="btn btn-sm btn-default">Cancel</a>
     </div>
 
@@ -79,7 +81,8 @@
             $('.add-to-collection').on('click', function(e) {
                 e.preventDefault();
                 var container = $('.collection-container');
-                var count = container.children().length;
+                var count = container.children('.contact').length;
+                console.log(count);
                 var proto = container.data('prototype').replace(/__NAME__/g, count);
                 container.append(proto);
             });
