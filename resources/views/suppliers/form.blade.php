@@ -56,7 +56,7 @@
     <fieldset class="col-md-12 mb-3 collection-container" 
              data-prototype='@include("suppliers.shared.form_contact", ["index" => "__NAME__"])'>
         <legend>Contacts</legend>
-        @foreach ($entity->getContacts() as $i => $contact)
+        @foreach (old('contacts', [0 => []]) as $i => $contact)
             @include('suppliers.shared.form_contact', ['index' => $i])
         @endforeach
     </fieldset>
@@ -65,7 +65,7 @@
     <div class="col-md-12 mb-3">
         {{ Form::submit('Save', ['class' => 'btn btn-sm btn-primary float-end']) }}
         @if (!$entity->getId())
-            <button type="button" class="add-to-collection btn btn-sm btn-outline-primary float-end">New contact</button>
+            <button type="button" class="add-to-collection btn btn-sm btn-outline-primary mx-2 float-end">New contact</button>
         @endif
         <a href="{{ route('suppliers.index') }}" class="btn btn-sm btn-default">Cancel</a>
     </div>

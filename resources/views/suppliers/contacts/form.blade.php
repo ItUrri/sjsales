@@ -1,7 +1,7 @@
-@extends('suppliers/header')
+@extends('suppliers.show')
 
 @section('body')
-<h4>@if ($contact->getId()) Edit contact @else New contact @endif</h4>
+<h4 class="py-2">@if ($contact->getId()) Edit contact @else New contact @endif</h4>
 <form action="{{ $route }}" method="POST" class="row">
     @csrf
     {{ method_field($method ?? 'POST') }}
@@ -34,8 +34,8 @@
         @endif
     </div>
     <div class="col-md-12">
-        {{ Form::submit('Save', ['class' => 'btn btn-sm btn-success float-end']) }}
-        <a href="{{ route('suppliers.show', ['supplier' => $entity->getId()]) }}" class="btn btn-sm float-end">Cancel</a>
+        <a href="{{ route('suppliers.show', ['supplier' => $entity->getId()]) }}" class="btn btn-sm">Cancel</a>
+        {{ Form::submit('Save', ['class' => 'btn btn-sm btn-primary float-end']) }}
     </div>
 </form>
 @endsection

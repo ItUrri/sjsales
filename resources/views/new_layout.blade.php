@@ -217,9 +217,11 @@
         </div>
       </div>
       @yield('content')
+      <!--
       <div class="px-0 py-5">
           Laravel v{{ Illuminate\Foundation\Application::VERSION }} (PHP v{{ PHP_VERSION }})
       </div>
+      -->
     </main>
   </div>
 </div>

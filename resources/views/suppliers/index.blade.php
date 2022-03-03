@@ -9,7 +9,7 @@
 
 <div class="table-responsive">
   <table class="table table-hover table-sm align-middle">
-      <thead class="table-light border-0">
+      <thead>
       <tr>
           <th scope="col">ID</th>
           <th scope="col">Name</th>

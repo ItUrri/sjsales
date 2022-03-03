@@ -1,7 +1,7 @@
-@extends('suppliers/header')
+@extends('suppliers.show')
 
 @section('body')
-<h4>@if ($incidence->getId()) Edit incidence @else New incidence @endif</h4>
+<h4 class="py-2">@if ($incidence->getId()) Edit incidence @else New incidence @endif</h4>
 <form action="{{ $route }}" method="POST" class="row">
     @csrf
     {{ method_field($method ?? 'POST') }}
