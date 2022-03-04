@@ -1,8 +1,8 @@
-@extends('suppliers/header')
+@extends('suppliers.show')
  
 @section('body')
-<div class="table-responsive table-responsive-sm">
-    <table class="table table-sm table-bordered">
+<div class="table-responsive">
+    <table class="table table-sm table-hover">
         <tr>
             <th>Year</th>
             <th>Credit</th>
