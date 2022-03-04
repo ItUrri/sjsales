@@ -47,6 +47,7 @@ Route::resources([
     'departments' => Controllers\DepartmentController::class,
     'orders'      => Controllers\OrderController::class,
     'orders.products' => Controllers\Order\ProductController::class,
+    'orders.invoices' => Controllers\Order\InvoiceController::class,
     'suppliers'   => Controllers\SupplierController::class,
     'suppliers.contacts' => Controllers\Supplier\ContactController::class,
     'suppliers.invoiceds' => Controllers\Supplier\InvoicedController::class,
