@@ -32,9 +32,11 @@
     "Department": "Departamento",
     "Departments": "Departamentos",
     "Department|Departments": "Departamento|Departamentos",
+    "Receptions": "Recepciones",
     "New": "Nuevo",
     "Add": "Añadir",
-    "view": "ver",
-    "edit": "editar",
-    "delete": "borrar"
+    "Receive": "Recibir",
+    "View": "Ver",
+    "Edit": "Editar",
+    "Delete": "Borrar"
 }

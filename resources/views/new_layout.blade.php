@@ -21,13 +21,17 @@
     /*width: 78px;*/
 }
 #sidebarMenu .nav-link:hover {
-    background: #DDD;
+    background: rgb(112 196 189/ 10%)
+}
+#sidebarMenu .nav-link.active {
+    #background: rgb(112 196 189/ 25%)
 }
     </style>
 </head>
 <body>
 
 <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+<!--<header class="navbar navbar-light sticky-top flex-md-nowrap p-0 shadow" style="background:#70c4bd">-->
   <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="/">
     <!--<img src="/img/logo/logo.png" alt="" class="gb_ka">-->
     <!--<img src="/img/favicon/avatar3.png" alt="" class="gb_ka">-->
@@ -97,13 +101,13 @@
           <li class="nav-item">
             <a class="nav-link" href="#">
               <span data-feather="bar-chart-2"></span>
-              Reports
+              {{ __('Reports') }}
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">
               <span data-feather="layers"></span>
-              Receptions 
+              {{ __('Receptions') }}
             </a>
           </li>
         </ul>

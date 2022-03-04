@@ -1,8 +1,8 @@
 @extends('new_layout')
 @section('title'){{ __('Areas') }}@endsection
 @section('btn-toolbar')
-    <a href="{{ route('areas.create') }}" class="btn btn-sm btn-outline-secondary">
-    <span data-feather="plus"></span> New
+    <a href="{{ route('areas.create') }}" class="btn btn-sm btn-outline-secondary" title="{{__('New')}}">
+        <span data-feather="plus"></span> New
     </a>
 @endsection
 @section('content')

@@ -1,7 +1,7 @@
-@extends('mpanel_layout')
+@extends('new_layout')
+@section('title'){{ __('New movement') }}@endsection
 
 @section('content')
-<h3>New movement</h3>
 
     {{ Form::open([
         'route' => ['movements.store'], 
@@ -11,7 +11,7 @@
         ]) 
     }}
 
-    <div class="col-md-6 mb-3 border">
+    <div class="col-md-6 mb-3">
         {{ Form::label('credit', 'Credit', ['class' => 'form-label']) }}
         <div class="input-group input-group-sm">
             {{ Form::number('credit', null, ['step' => '0.01', 'min' => 0, 'class' => 'form-control' . ($errors->has('credit') ? ' is-invalid':'') ]) }}
@@ -28,7 +28,7 @@
         @endif
     </div>
 
-    <div class="col-md-6 mb-3 border">
+    <div class="col-md-6 mb-3">
         {{ Form::label('detail', 'Description', ['class' => 'form-label']) }}
         {{ Form::textarea('detail', null, ['class' => 'form-control form-control-sm' . ($errors->has('detail') ? ' is-invalid':''), 'rows' => 4]) }}
         @if ($errors->has('detail'))
@@ -36,9 +36,9 @@
         @endif
     </div>
 
-    <div class="col-md-12 border">
-        {{ Form::submit('Save', ['class' => 'btn btn-sm btn-success float-end']) }}
-        <a href="{{ route('movements.index') }}" class="btn btn-sm float-end">Cancel</a>
+    <div class="col-md-12">
+        <a href="{{ route('movements.index') }}" class="btn btn-sm">Cancel</a>
+        {{ Form::submit('Save', ['class' => 'btn btn-sm btn-primary float-end']) }}
     </div>
 
     {{ Form::close() }}
