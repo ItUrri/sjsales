@@ -51,12 +51,10 @@ class OrderController extends Controller
             array_map(function($e) { return $e->getName(); }, $collection),
         );
 
-        $order = new Order;
-        $this->hydrateData($order, $request->old());
         return view('areas.orders.create', [
-            'entity'    => $area,
-            'order'     => $order,
+            'area'      => $area,
             'suppliers' => $map,
+            'entity'    => new Order,
         ]); 
     }
 
@@ -106,22 +104,23 @@ class OrderController extends Controller
      */
     protected function hydrateData(Order $entity, array $data = [])
     {
-        if (isset($data['credit']))     $entity->setEstimatedCredit($data['credit']);
-        if (isset($data['detail']))     $entity->setDetail($data['detail']);
-        if (isset($data['sequence']))   $entity->setSequence($data['sequence']);
-        if (isset($data['date']))       $entity->setDate(new \Datetime($data['date']));
-        if (!isset($data['products']))  $data['products'] = [[]];
-        foreach ($data['products'] as $raw) {
-            $product = new Product;
-            if (isset($raw['supplier'])) {
-                if (null === ($e = $this->em->find(Supplier::class, $raw['supplier']))) {
-                    throw new \RuntimeException("Supplier {$raw['supplier']} not found"); 
+        if (isset($data['estimatedCredit']))    $entity->setEstimatedCredit($data['estimatedCredit']);
+        if (isset($data['detail']))             $entity->setDetail($data['detail']);
+        if (isset($data['sequence']))           $entity->setSequence($data['sequence']);
+        if (isset($data['date']))               $entity->setDate(new \Datetime($data['date']));
+        if (isset($data['products'])) {
+            foreach ($data['products'] as $raw) {
+                $product = new Product;
+                if (isset($raw['supplier'])) {
+                    if (null === ($e = $this->em->find(Supplier::class, $raw['supplier']))) {
+                        throw new \RuntimeException("Supplier {$raw['supplier']} not found"); 
+                    }
+                    $product->setSupplier($e);
                 }
-                $product->setSupplier($e);
+                if (isset($raw['detail'])) $product->setDetail($raw['detail']);
+                if (isset($raw['credit'])) $product->setCredit($raw['credit']);
+                $entity->addProduct($product);
             }
-            if (isset($raw['detail'])) $product->setDetail($raw['detail']);
-            if (isset($raw['credit'])) $product->setCredit($raw['credit']);
-            $entity->addProduct($product);
         }
     }
 }

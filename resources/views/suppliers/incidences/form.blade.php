@@ -13,8 +13,8 @@
         @endif
     </div>
     <div class="col-md-12">
-        {{ Form::submit('Save', ['class' => 'btn btn-sm btn-success float-end']) }}
-        <a href="{{ route('suppliers.incidences.index', ['supplier' => $entity->getId()]) }}" class="btn btn-sm float-end">Cancel</a>
+        <a href="{{ route('suppliers.incidences.index', ['supplier' => $entity->getId()]) }}" class="btn btn-sm">Cancel</a>
+        {{ Form::submit('Save', ['class' => 'btn btn-sm btn-primary float-end']) }}
     </div>
 </form>
 @endsection

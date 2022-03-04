@@ -4,7 +4,7 @@
 @section('content')
 
     {{ Form::open([
-        'route' => ['areas.orders.store', ['area' => $entity->getId()]], 
+        'route' => ['areas.orders.store', ['area' => $area->getId()]], 
         'method' => 'POST', 
         'class' => 'row',
         'novalidate' => true,
@@ -12,12 +12,12 @@
     }}
 
     <div class="col-md-6 mb-3">
-        {{ Form::label('credit', "Estimated credit (Available: {$entity->getAvailableCredit()}€)", ['class' => 'form-label']) }}
+        {{ Form::label('credit', "Estimated credit (Available: {$area->getAvailableCredit()}€)", ['class' => 'form-label']) }}
         <div class="input-group input-group-sm mb-3">
-            {{ Form::number('credit', old('credit', 0), ['step' => '0.01', 'min' => 0, 'class' => 'form-control' . ($errors->has('credit') ? ' is-invalid':'') ]) }}
+            {{ Form::number('estimatedCredit', old('estimatedCredit', $entity->getEstimatedCredit()), ['step' => '0.01', 'min' => 0, 'class' => 'form-control' . ($errors->has('estimatedCredit') ? ' is-invalid':'') ]) }}
             <span class="input-group-text">€</span>
-            @if ($errors->has('credit'))
-               <div class="invalid-feedback">{!! $errors->first('credit') !!}</div>
+            @if ($errors->has('estimatedCredit'))
+               <div class="invalid-feedback">{!! $errors->first('estimatedCredit') !!}</div>
             @endif
         </div>
 
@@ -27,7 +27,7 @@
             <div class="col-md-12 text-center small" id="sequence-alert"></div>
             <div class="col-md-4">
                 {{ Form::label('previous', 'Select previous', ['class' => 'form-label']) }}
-                {{ Form::select('previous', array_merge([null => '--Select one--'], $entity->getOrders()->map(function($e) {return $e->getSequence(); })->toArray()), old('previous', null), ['class'=>'form-select form-select-sm', 'disabled' => true, 'onchange' => 'selectSequence(this)'], [null => ['disabled' => true]]) }}
+                {{ Form::select('previous', array_merge([null => '--Select one--'], $area->getOrders()->map(function($e) {return $e->getSequence(); })->toArray()), old('previous', null), ['class'=>'form-select form-select-sm', 'disabled' => true, 'onchange' => 'selectSequence(this)'], [null => ['disabled' => true]]) }}
             </div>
             <div class="col-md-4">
                 {{ Form::label('sequence', 'Current sequence', ['class' => 'form-label']) }}
@@ -59,15 +59,17 @@
     <fieldset class="col-md-12 mb-3 collection-container" 
              data-prototype='@include("areas.orders.shared.form_product", ["index" => "__NAME__"])'>
         <legend>Products</legend>
-        @foreach ($order->getProducts() as $i => $product)
+        @foreach (old('products', [[]]) as $i => $product)
             @include("areas.orders.shared.form_product", ["index" => $i])
         @endforeach
     </fieldset>
 
     <div class="col-md-12">
-        <button type="button" class="btn btn-sm btn-default" onclick="addToCollection()">New product</button>
-        {{ Form::submit('Save', ['class' => 'btn btn-sm btn-success float-end']) }}
-        <a href="{{ route('areas.show', ['area' => $entity->getId()]) }}" class="btn btn-sm float-end">Cancel</a>
+        {{ Form::submit('Save', ['class' => 'btn btn-sm btn-primary float-end']) }}
+        <button type="button" class="btn btn-sm btn-outline-primary float-end mx-2" onclick="addToCollection()">
+            <span data-thead="plus"></span> New product
+        </button>
+        <a href="{{ route('areas.show', ['area' => $area->getId()]) }}" class="btn btn-sm">Cancel</a>
     </div>
 
     {{ Form::close() }}
@@ -105,7 +107,7 @@
             } 
         }
 
-        var sequence = @php echo json_encode($entity->getOrders()->toArray()); @endphp;
+        var sequence = @php echo json_encode($area->getOrders()->toArray()); @endphp;
         function selectSequence(input) {
             var index = $(input).val();
             var prev = sequence[index];

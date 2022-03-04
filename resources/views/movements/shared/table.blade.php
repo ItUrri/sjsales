@@ -1,14 +1,14 @@
 <div class="table-responsive table-responsive-sm">
     <table class="table table-sm table-bordered">
         <tr>
-            <th scope="col">Order nº</th>
-            <th scope="col">Area</th>
-            <th scope="col">Invoice</th>
-            <th scope="col">Type</th>
-            <th scope="col">Credit</th>
-            <th scope="col">Detail</th>
-            <th scope="col">Created</th>
-            <th scope="col">Actions</th>
+            <th scope="col">{{ __('Order') }}</th>
+            <th scope="col">{{ __('Area') }}</th>
+            <th scope="col">{{ __('Invoice') }}</th>
+            <th scope="col">{{ __('Type') }}</th>
+            <th scope="col">{{ __('Credit') }}</th>
+            <th scope="col">{{ __('Detail') }}</th>
+            <th scope="col">{{ __('Created') }}</th>
+            <th scope="col">{{ __('Actions') }}</th>
         </tr>
         @foreach ($collection as $i => $entity)
         <tr>

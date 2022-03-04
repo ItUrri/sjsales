@@ -43,7 +43,7 @@ class OrderPostRequest extends FormRequest
             abort(404);
         }
         return [
-            'credit' => "required|numeric|between:0,{$entity->getAvailableCredit()}",
+            'estimatedCredit'     => "required|numeric|between:0,{$entity->getAvailableCredit()}",
             'products.*.supplier' => 'required',
             'products.*.detail'   => 'required|max:255',
             'products.*.credit'   => 'required|min:0',

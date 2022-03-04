@@ -4,6 +4,6 @@
 @endsection
 @section('content')
   
-@include('orders.shared.table', ['collection' => $orders, 'pagination' => true])
+@include('orders.shared.table', ['collection' => $collection, 'pagination' => true])
   
 @endsection

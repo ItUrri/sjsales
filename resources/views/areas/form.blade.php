@@ -101,7 +101,7 @@
 
     <div>
         {{ Form::submit('Save', ['class' => 'btn btn-primary btn-sm float-end']) }}
-        <a href="{{ route('areas.index') }}" class="btn btn-sm float-end">
+        <a href="{{ route('areas.index') }}" class="btn btn-sm">
             Cancel
         </a>
     </div>

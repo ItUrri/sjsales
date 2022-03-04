@@ -1,5 +1,5 @@
 <div class="table-responsive">
-    <table class="table table-hover table-sm align-middle">
+    <table class="table table-hover table-sm">
     <thead>
         <tr>
             <th>Name</th>
@@ -22,7 +22,9 @@
                     'method' => 'delete',
                 ]) }}
                 <div class="btn-group btn-group-sm" role="group">
-                    <a href="{{ route('suppliers.contacts.edit', ['supplier' => $entity->getId(), 'contact' => $contact->getId()]) }}" class='btn btn-sm btn-outline-secondary {{request()->is("suppliers/{$entity->getId()}/contacts/{$contact->getId()}/edit") ? "active" : ""}}'><span data-feather="edit-2"></span></a>
+                    <a href="{{ route('suppliers.contacts.edit', ['supplier' => $entity->getId(), 'contact' => $contact->getId()]) }}" class='btn btn-sm btn-outline-secondary {{request()->is("suppliers/{$entity->getId()}/contacts/{$contact->getId()}/edit") ? "active" : ""}}'>
+                        <span data-feather="edit-2"></span>
+                   </a>
                 {{ Form::button('<span data-feather="trash"></span>', ['class' => 'btn btn-outline-secondary', 'type' => 'submit']) }}
                 </div>
                 {{ Form::close() }}

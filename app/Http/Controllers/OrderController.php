@@ -34,7 +34,7 @@ class OrderController extends Controller
         $orders = $this->em->getRepository(Order::class)->lastest();
 
         return view('orders.index', [
-            'orders' => $orders,
+            'collection' => $orders,
         ]); 
     }
 
@@ -47,7 +47,7 @@ class OrderController extends Controller
     public function show(Order $order)
     {
         return view('orders.show', [
-            'order' => $order,
+            'entity' => $order,
         ]); 
     }
 
