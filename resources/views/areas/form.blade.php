@@ -70,7 +70,7 @@
                 @if (isset($users[$i]))
                     @php $e = $users[$i]; $i++; @endphp
                     {{ Form::checkbox("users[]", $e->getId(), $entity->getusers()->contains($e), ['class' => 'form-check-input']) }}
-                    {{ Form::label("users[]", "{$e->getEmail()}. login:({$e->getLastLogin()->format('d/m/Y H:i')})", ['class' => 'form-check-label']) }}
+                    {{ Form::label("users[]", $e->getEmail(), ['class' => 'form-check-label']) }}
                 @endif
                 </td>
             @endfor
