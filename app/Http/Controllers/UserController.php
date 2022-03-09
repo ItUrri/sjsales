@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Http\Requests\UserRequest;
 use App\Entities\User,
     App\Entities\Role;
 
@@ -52,6 +53,43 @@ class UserController extends Controller
     }
 
     /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        $roles = $this->em->getRepository(Role::class)
+                      ->findBy([], ['name' => 'asc']);
+
+        return view('users.form', [
+            'route'  => route('users.store'),
+            'method' => 'POST',
+            'entity' => new User,
+            'roles'  => $roles,
+        ]); 
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  DepartmentRequest  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(UserRequest $request)
+    {
+        $data = $request->validated();
+        $user = new User;
+        $this->hydrateData($user, $data);
+
+        $this->em->persist($user);
+        $this->em->flush();
+        return redirect()->route('users.show', ['user' => $user->getId()])
+                         ->with('success', 'Successfully created');
+
+    }
+
+    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
@@ -77,12 +115,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(UserRequest $request, User $user)
     {
-        $data = $request->validate([
-            'email' => ['required', 'email'],
-            'roles' => ['required'],
-        ]);
+        $data = $request->validated();
         $this->hydrateData($user, $data);
         $this->em->flush();
         return redirect()->route('users.show', ['user' => $user->getId()])

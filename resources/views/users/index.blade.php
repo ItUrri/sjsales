@@ -1,11 +1,17 @@
 @extends('new_layout')
 @section('title'){{ __('Users') }}@endsection
+@section('btn-toolbar')
+    <a href="{{ route('users.create') }}" class="btn btn-sm btn-outline-secondary">
+        <span data-feather="plus"></span> New
+    </a>
+@endsection
 @section('content')
 <div class="table-responsive">
 <table class="table table-hover table-sm align-middle">
     <thead>
     <tr>
         <th scope="col">{{ __('Email') }}</th>
+        <th scope="col">{{ __('Name') }}</th>
         <th scope="col">{{ __('Roles') }}</th>
         <th scope="col">{{ __('Areas') }}</th>
         <th scope="col">{{ __('Created') }}</th>
@@ -17,10 +23,11 @@
     @foreach ($collection as $user)
     <tr>
         <td>{{ $user->getEmail() }}</td>
+        <td>{{ $user->getName() }}</td>
         <td>{{ implode(", ", $user->getRoles()->map(function ($e) { return $e->getName(); })->toArray()) }}</td>
         <td>{{ implode(", ", $user->getAreas()->map(function ($e) { return "{$e->getName()} ({$e->getType()})"; })->toArray()) }}</td>
         <td>{{ $user->getCreated()->format("d/m/Y H:i") }}</td>
-        <td>{{ $user->getLastLogin()->format("d/m/Y H:i") }}</td>
+        <td>@if ($user->getLastLogin()) {{ $user->getLastLogin()->format("d/m/Y H:i") }} @endif</td>
         <td class="m-0">
             <div class="btn-group btn-group-sm">
                 <a href="{{route('users.show', ['user' => $user->getId()])}}" class="btn btn-outline-secondary">

@@ -49,4 +49,6 @@
 
     {{ Form::close() }}
     </div>
+
+    <a href="{{ route('redirectToProvider') }}">Google</a>
 @endsection

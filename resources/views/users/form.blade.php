@@ -42,8 +42,8 @@
     </fieldset>
 
     <div class="col-md-12">
+        <a href="{{ route('areas.index') }}" class="btn btn-sm">Cancel</a>
         {{ Form::submit('Save', ['class' => 'btn btn-success btn-sm float-end']) }}
-        <a href="{{ route('areas.index') }}" class="btn btn-sm float-end">Cancel</a>
     </div>
 
 </form>

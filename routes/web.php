@@ -15,7 +15,6 @@ use App\Http\Controllers;
 |
 */
 
-Route::get('auth', function () {return view('auth.index');})->name('auth');
 Route::get('logout', [\App\Http\Controllers\AuthController::class, 'logout'])->name('logout');
 Route::post('login', [\App\Http\Controllers\AuthController::class, 'login'])->name('login');
 Route::post('register', [\App\Http\Controllers\AuthController::class, 'register'])->name('register');
@@ -28,6 +27,12 @@ Route::get('/', function () {return view('home');})
     ->name('home')
     ->middleware('auth')
     ;
+
+Route::get('auth', function () {return view('auth.index');})->name('auth'); //HIDE this route
+Route::get('/redirect', [Controllers\SocialiteController::class, 'redirectToProvider'])->name('redirectToProvider');
+Route::get('/callback', [Controllers\SocialiteController::class, 'handleProviderCallback'])->name('handleProvider');
+
+
 
 /*
  *

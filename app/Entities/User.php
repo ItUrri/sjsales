@@ -19,6 +19,13 @@ class User implements Authenticatable, HasRolesContract
 {
     use HasRoles;
 
+    //name
+    //google_id
+    //email->unique
+    //password->nullable
+    //avatar->nullable
+    //avatar_original->nullable
+
     /**
      * @var int
      *
@@ -31,16 +38,37 @@ class User implements Authenticatable, HasRolesContract
     /**
      * @var string
      *
-     * @ORM\Column(name="email", type="string")
+     * @ORM\Column(name="email", type="string", unique=true)
      */
     private $email;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="password", type="string")
+     * @ORM\Column(name="password", type="string", nullable=true)
      */
     private $password;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="google_id", type="string", nullable=true)
+     */
+    private $googleId;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="name", type="string", nullable=true)
+     */
+    private $name;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="avatar", type="string", nullable=true)
+     */
+    private $avatar;
 
     /**
      * @var string
@@ -88,6 +116,7 @@ class User implements Authenticatable, HasRolesContract
     public function __construct()
     {
         $this->areas = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->roles = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -146,6 +175,78 @@ class User implements Authenticatable, HasRolesContract
     public function getPassword()
     {
         return $this->password;
+    }
+
+    /**
+     * Set googleId.
+     *
+     * @param string $googleId
+     *
+     * @return User
+     */
+    public function setGoogleId($googleId)
+    {
+        $this->googleId = $googleId;
+
+        return $this;
+    }
+
+    /**
+     * Get googleId.
+     *
+     * @return string
+     */
+    public function getGoogleId()
+    {
+        return $this->googleId;
+    }
+
+    /**
+     * Set name.
+     *
+     * @param string $name
+     *
+     * @return User
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name.
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set avatar.
+     *
+     * @param string $avatar
+     *
+     * @return User
+     */
+    public function setAvatar($avatar = null)
+    {
+        $this->avatar = $avatar;
+
+        return $this;
+    }
+
+    /**
+     * Get avatar.
+     *
+     * @return string
+     */
+    public function getAvatar()
+    {
+        return $this->avatar;
     }
 
     /**

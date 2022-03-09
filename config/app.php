@@ -193,6 +193,7 @@ return [
         Kris\LaravelFormBuilder\FormBuilderServiceProvider::class,
         LaravelDoctrine\ACL\AclServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
+        Laravel\Socialite\SocialiteServiceProvider::class,
     ],
 
     /*
@@ -252,6 +253,7 @@ return [
         'Html' => 'Collective\Html\HtmlFacade',
         'FormBuilder' => Kris\LaravelFormBuilder\Facades\FormBuilder::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
+        'Socialite' => Laravel\Socialite\Facades\Socialite::class,
     ],
 
 ];
