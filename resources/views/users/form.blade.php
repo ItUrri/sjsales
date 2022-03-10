@@ -18,7 +18,7 @@
         {{ Form::label('email', 'Email', ['class' => 'form-label']) }}
         {{ Form::email('email', old('email', $entity->getEmail()), ['class' => 'form-control form-control-sm' . ($errors->has('email')? ' is-invalid':''), 'aria-describedby' => 'emailHelpBlock']) }}
         <div id="passwordHelpBlock" class="form-text">
-            {{ __('Email must be in fpsanjorge domain') }}
+            {{ __("Email must be in ':domain' domain", ['domain' => 'fpsanjorge.com']) }}
         </div>
         @if ($errors->has('email'))
            <div class="invalid-feedback">{!! $errors->first('email') !!}</div>
@@ -46,7 +46,7 @@
 
     <div class="col-md-12">
         <a href="{{ route('users.index') }}" class="btn btn-sm">Cancel</a>
-        {{ Form::submit('Save', ['class' => 'btn btn-success btn-sm float-end']) }}
+        {{ Form::submit('Save', ['class' => 'btn btn-primary btn-sm float-end']) }}
     </div>
 
 </form>

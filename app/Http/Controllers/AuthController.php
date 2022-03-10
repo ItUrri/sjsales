@@ -34,7 +34,7 @@ class AuthController extends Controller
             Auth::logout();
         }
 
-        return redirect()->route('auth');
+        return redirect()->route('redirectToProvider');
     }
 
     /**

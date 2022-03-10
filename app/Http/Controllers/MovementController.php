@@ -65,7 +65,8 @@ class MovementController extends Controller
             throw new \RuntimeException(sprintf("Description not matches with $pattern pattern"));
         }
 
-        $order = $this->em->getRepository(Order::class)->findOneBy(['sequence' => $matches[0]]);
+        $order = $this->em->getRepository(Order::class)
+                          ->findOneBy(['sequence' => $matches[0]]);
 
         if (!$order) {
             return redirect()->back()
@@ -77,7 +78,7 @@ class MovementController extends Controller
         $movement = new Movement;
         $movement->setCredit($data['credit'])
                  ->setInvoice($data['invoice'])
-                 ->setDetail($data['detail'])
+                 ->setDetail(str_replace($matches[0], "", $description))
                  ->setOrder($order);
 
         MovementEvent::dispatch($movement);

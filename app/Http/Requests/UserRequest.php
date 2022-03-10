@@ -32,4 +32,17 @@ class UserRequest extends FormRequest
             'roles' => 'required',
         ];
     }
+
+    /**
+     * Get custom messages for validator errors.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            //'email.regex' => 'custom message',
+        ];
+    }
+
 }

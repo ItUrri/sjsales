@@ -23,7 +23,7 @@
     <tbody>
     @foreach ($collection as $user)
     <tr>
-        <td>@if ($user->getAvatar()) <img src="{{ $user->getAvatar() }}" height="25" width="25"/> @endif</td>
+        <td>@if ($user->getAvatar()) <img src="{{ $user->getAvatar() }}" height="25" width="25" class="rounded-circle"/> @endif</td>
         <td>{{ $user->getEmail() }}</td>
         <td>{{ $user->getName() }}</td>
         <td>{{ implode(", ", $user->getRoles()->map(function ($e) { return $e->getName(); })->toArray()) }}</td>
