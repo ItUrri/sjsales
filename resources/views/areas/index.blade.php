@@ -17,6 +17,7 @@
         <th scope="col">{{ __('Departments') }}</th>
         <th scope="col">{{ __('Real credit') }}</th>
         <th scope="col">{{ __('Compromised credit') }}</th>
+        <th scope="col">{{ __('Available credit') }}</th>
         <th scope="col">{{ __('Created') }}</th>
         <th scope="col">{{ __('Actions') }}</th>
     </tr>
@@ -30,6 +31,7 @@
             <td>{{ implode(", ", $entity->getDepartments()->map(function ($e) { return $e->getName(); })->toArray()) }}</td>
             <td>{{ $entity->getCredit() }}€</td>
             <td>{{ $entity->getCompromisedCredit() }}€</td>
+            <td>{{ $entity->getAvailableCredit() }}€</td>
             <td>{{ $entity->getCreated()->format("d/m/Y H:i") }}</td>
             <td>
             {{ Form::open([

@@ -16,7 +16,7 @@
         @foreach ($collection as $i => $entity)
         <tr>
             <td><a href="{{route('orders.show', ['order' => $entity->getOrder()->getId()])}}">{{ $entity->getOrder()->getSequence() }}</a></td>
-            <td><a href="{{route('areas.show', ['area' => $entity->getArea()->getId()])}}">{{ $entity->getArea()->getSerial() }}</a></td>
+            <td><a href="{{route('areas.show', ['area' => $entity->getArea()->getId()])}}">{{ $entity->getArea()->getName() }}-{{ $entity->getArea()->getType() }}</a></td>
             <td>{{ $entity->getCredit() }}€</td>
             <td>{{ $entity->getInvoice() }}</td>
             <td>{{ $entity->getTypeName() }}</td>

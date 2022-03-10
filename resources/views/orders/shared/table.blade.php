@@ -18,7 +18,7 @@
         @foreach ($collection as $i => $order)
         <tr>
             <td><a href="{{ route('orders.show', ['order' => $order->getId()]) }}">{{ $order->getSequence() }}</a></td>
-            <td><a href="{{ route('areas.show', ['area' => $order->getArea()->getId()]) }}">{{ $order->getArea()->getName() }}</a></td>
+            <td><a href="{{ route('areas.show', ['area' => $order->getArea()->getId()]) }}">{{ $order->getArea()->getName() }}-{{ $order->getArea()->getType() }}</a></td>
             <td>{{ $order->getArea()->getTypeName() }}</td>
             <td>{{ $order->getProducts()->count() }}</td>
             <td>{{ $order->getEstimatedCredit() }}€</td>
