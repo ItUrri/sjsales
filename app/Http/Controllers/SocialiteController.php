@@ -3,10 +3,26 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Doctrine\ORM\EntityManagerInterface;
 use Laravel\Socialite\Facades\Socialite;
+use Illuminate\Support\Facades\Auth;
+use App\Entities\User;
 
 class SocialiteController extends Controller
 {
+    /**
+     * @EntityManagerInterface
+     */ 
+    protected $em;
+
+    /**
+     * @param EntityManagerInterface $em
+     */
+    public function __construct(EntityManagerInterface $em)
+    {
+        $this->em = $em;
+    }
+
     /**
      * Redirect the user to the Google authentication page.
      *
@@ -25,18 +41,33 @@ class SocialiteController extends Controller
     public function handleProviderCallback()
     {
         try {
-            $user = Socialite::driver('google')->user();
+            $googleUser = Socialite::driver('google')->user();
         } 
         catch (\Exception $e) {
-            dd($e);
-            return redirect('/login');
+            return response($e->getMessage(), 505);
         }
-        dd($user);
+
+        $user = $this->em->getRepository(User::class)->findOneBy([
+            'email' => $googleUser->email
+        ]);
+
+        if($user === null){
+            return response("{$googleUser->email} Unauthorized", 403);
+        }
+
+        if (!$user->getGoogleId()) {
+            $user->setGoogleId($googleUser->id)
+                ->setName($googleUser->name)
+                ->setAvatar($googleUser->avatar)
+                ;
+
+            $this->em->persist($user);
+            $this->em->flush();
+        }
+
+        Auth::login($user, true);
+        return redirect()->intended('/');
         /*
-        // only allow people with @company.com to login
-        if(explode("@", $user->email)[1] !== 'company.com'){
-            return redirect()->to('/');
-        }
         // check if they're an existing user
         $existingUser = User::where('email', $user->email)->first();
         if($existingUser){

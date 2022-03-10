@@ -59,7 +59,6 @@ class MovementController extends Controller
     public function store(MovementRequest $request)
     {
         $data = $request->validated();
-        $pattern = "@(^[A-Z]+)-(E|F|L)-?([\d]*)/([\d]{2})-([\d|-]+)@";
         $description = $data['detail'];
         $matches = [];
         if (!preg_match(Order::SEQUENCE_PATTERN, $description, $matches)) {
@@ -73,6 +72,8 @@ class MovementController extends Controller
                              ->withInput()
                              ->withErrors(["order" => "Order {$matches[0]} not found"]);
         }
+
+        //TODO: If order is allready paid
         $movement = new Movement;
         $movement->setCredit($data['credit'])
                  ->setInvoice($data['invoice'])

@@ -19,13 +19,6 @@ class User implements Authenticatable, HasRolesContract
 {
     use HasRoles;
 
-    //name
-    //google_id
-    //email->unique
-    //password->nullable
-    //avatar->nullable
-    //avatar_original->nullable
-
     /**
      * @var int
      *

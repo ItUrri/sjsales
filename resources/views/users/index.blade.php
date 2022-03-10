@@ -10,6 +10,7 @@
 <table class="table table-hover table-sm align-middle">
     <thead>
     <tr>
+        <th scope="col">{{ __('Avatar') }}</th>
         <th scope="col">{{ __('Email') }}</th>
         <th scope="col">{{ __('Name') }}</th>
         <th scope="col">{{ __('Roles') }}</th>
@@ -22,6 +23,7 @@
     <tbody>
     @foreach ($collection as $user)
     <tr>
+        <td>@if ($user->getAvatar()) <img src="{{ $user->getAvatar() }}" height="25" width="25"/> @endif</td>
         <td>{{ $user->getEmail() }}</td>
         <td>{{ $user->getName() }}</td>
         <td>{{ implode(", ", $user->getRoles()->map(function ($e) { return $e->getName(); })->toArray()) }}</td>

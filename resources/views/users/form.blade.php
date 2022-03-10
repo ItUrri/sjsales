@@ -16,7 +16,10 @@
 
     <div class="col-md-12 mb-3">
         {{ Form::label('email', 'Email', ['class' => 'form-label']) }}
-        {{ Form::email('email', old('email', $entity->getEmail()), ['class' => 'form-control form-control-sm' . ($errors->has('email')? ' is-invalid':'')]) }}
+        {{ Form::email('email', old('email', $entity->getEmail()), ['class' => 'form-control form-control-sm' . ($errors->has('email')? ' is-invalid':''), 'aria-describedby' => 'emailHelpBlock']) }}
+        <div id="passwordHelpBlock" class="form-text">
+            {{ __('Email must be in fpsanjorge domain') }}
+        </div>
         @if ($errors->has('email'))
            <div class="invalid-feedback">{!! $errors->first('email') !!}</div>
         @endif
@@ -42,7 +45,7 @@
     </fieldset>
 
     <div class="col-md-12">
-        <a href="{{ route('areas.index') }}" class="btn btn-sm">Cancel</a>
+        <a href="{{ route('users.index') }}" class="btn btn-sm">Cancel</a>
         {{ Form::submit('Save', ['class' => 'btn btn-success btn-sm float-end']) }}
     </div>
 
