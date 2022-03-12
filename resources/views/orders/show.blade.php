@@ -8,7 +8,7 @@
         'method' => 'delete',
     ]) }}
     <a href="{{ route('orders.invoices.create', ['order' => $entity->getId()]) }}" class="btn btn-sm btn-outline-secondary" target="_blank">
-        <span data-feather="file"></span> PDF 
+        <span data-feather="file-text"></span> PDF 
     </a>
     <div class="btn-group btn-group-sm" role="group">
         <a href="{{ route('orders.edit', ['order' => $entity->getId()]) }}" class="btn btn-outline-secondary">

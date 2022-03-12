@@ -29,8 +29,9 @@ class OrderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        //dd($request->all());
         $orders = $this->em->getRepository(Order::class)->lastest();
 
         return view('orders.index', [
