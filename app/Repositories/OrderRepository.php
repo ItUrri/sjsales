@@ -50,4 +50,48 @@ class OrderRepository extends \Doctrine\ORM\EntityRepository
 
         return $this->paginate($builder->getQuery(), $perPage, $pageName);
     }
+
+    /**
+     *
+     */
+    function search(
+        $sequence = null, 
+        $from = null, 
+        $to = null, 
+        $area = null, 
+        $type = null, 
+        $status = null, 
+        $perPage = 5, 
+        $pageName= "page")
+    {
+        $builder = $this->createQueryBuilder('o');
+        if ($sequence !== null) {
+            $builder->andWhere("o.sequence LIKE :sequence")
+                    ->setParameter('sequence', "%{$sequence}%");
+        }
+        if ($from !== null) {
+            $builder->andWhere("o.date >= :from")
+                ->setParameter('from', $from);
+        }
+        if ($to !== null) {
+            $builder->andWhere("o.date <= :to")
+                ->setParameter('to', $to);
+        }
+        if ($area !== null) {
+            $builder->andWhere("o.area = :area")
+                ->setParameter('area', $area);
+        }
+        if ($type !== null) {
+            $builder->innerJoin('o.area', 'a')
+                    ->andWhere("a.type = :type")
+                    ->setParameter('type', $type);
+        }
+        if ($status !== null) {
+            $builder->andWhere("o.status = :status")
+                ->setParameter('status', $status);
+        }
+        $builder->orderBy('o.date' , 'DESC');
+
+        return $this->paginate($builder->getQuery(), $perPage, $pageName);
+    }
 }

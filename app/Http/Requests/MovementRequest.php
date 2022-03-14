@@ -43,7 +43,7 @@ class MovementRequest extends FormRequest
             if (isset($data['detail'])) {
                 $matches = [];
                 if (!preg_match(\App\Entities\Order::SEQUENCE_PATTERN, $data['detail'])) {
-                    $validator->errors()->add("detail", "Not matches with {$pattern} pattern");
+                    $validator->errors()->add("detail", "Unmatched an order sequence pattern");
                 }
             }
         });

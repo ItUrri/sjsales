@@ -71,10 +71,14 @@ class MovementController extends Controller
         if (!$order) {
             return redirect()->back()
                              ->withInput()
-                             ->withErrors(["order" => "Order {$matches[0]} not found"]);
+                             ->withErrors(["detail" => "Order {$matches[0]} not found"]);
+        }
+        else if (!$order->isStatus(Order::STATUS_CREATED)) {
+            return redirect()->back()
+                             ->withInput()
+                             ->withErrors(["detail" => "Order status is {$order->getStatusName()}"]);
         }
 
-        //TODO: If order is allready paid
         $movement = new Movement;
         $movement->setCredit($data['credit'])
                  ->setInvoice($data['invoice'])

@@ -88,12 +88,20 @@ class AreaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Area $area)
+    public function show(Request $request, Area $area)
     {
+        $orders = $this->em->getRepository(Order::class)->search(
+            $request->input('sequence'),
+            $request->input('from'),
+            $request->input('to'),
+            $area->getId(),
+            $request->input('type'),
+            $request->input('status')
+        );
+
         return view('areas.show', [
             'entity' => $area,
-            'collection' => $this->em->getRepository(Order::class)
-                                 ->fromArea($area),
+            'collection' => $orders,
         ]); 
     }
 
